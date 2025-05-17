@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using musicplayer.dataobjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace musicplayer
+namespace musicplayer.dao
 {
     public class SongDAO : IDAO<Song>
     {
@@ -90,7 +91,7 @@ namespace musicplayer
 
             SqlCommand command = new SqlCommand("INSERT INTO songs (so_sd_id, so_alb_id, so_name, so_length) OUTPUT INSERTED.so_id VALUES (@data_id, @alb_id, @name, @length)", connection);
             command.Parameters.AddWithValue("data_id", dataID);
-            command.Parameters.AddWithValue("alb_id", song.AlbumID);
+            command.Parameters.AddWithValue("alb_id", song.AlbumID != null ? song.AlbumID : DBNull.Value);
             command.Parameters.AddWithValue("name", song.Name);
             command.Parameters.AddWithValue("length", 120);
 

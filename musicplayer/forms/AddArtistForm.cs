@@ -1,4 +1,6 @@
-﻿using System;
+﻿using musicplayer.dao;
+using musicplayer.dataobjects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,7 +23,7 @@ namespace musicplayer
         private void bChangeImage_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "JPEG (*.jpeg)|*.jpeg|PNG (*.png)|*.png|Bitmap (*.bmp)|*.bmp|All files (*.*)|*.*";
+            dialog.Filter = "All files (*.*)|*.*|JPEG (*.jpeg)|*.jpeg|PNG (*.png)|*.png|Bitmap (*.bmp)|*.bmp";
             if (dialog.ShowDialog() != DialogResult.OK) return;
             try
             {
@@ -46,10 +48,11 @@ namespace musicplayer
             try
             {
                 new ArtistDAO().Upload(artist);
-            }
+                MessageBox.Show("Artist " + artist.Name + " added successfully", artist.Name);
+			}
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Unable to add artist");
+                ErrorHandler.HandleException(ex, "Unable to add artist", "Artist could not be added to the database due to an internal database error.");
             }
         }
     }

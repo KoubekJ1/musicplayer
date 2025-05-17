@@ -1,11 +1,12 @@
-﻿using System;
+﻿using musicplayer.dao;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace musicplayer
+namespace musicplayer.dataobjects
 {
     public class Album : IDataObject
     {
@@ -29,8 +30,10 @@ namespace musicplayer
 
         public int? Id { get => id; set => id = value; }
         public IconImage? Image { get => _image; set => _image = value; }
+		public string Name { get => _name; set => _name = value; }
+		public List<Song> Songs { get => _songs; }
 
-        public int? GetID()
+		public int? GetID()
         {
             return id;
         }

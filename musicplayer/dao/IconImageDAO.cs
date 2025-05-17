@@ -1,11 +1,12 @@
 ﻿using Microsoft.Data.SqlClient;
+using musicplayer.dataobjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace musicplayer
+namespace musicplayer.dao
 {
     public class IconImageDAO : IDAO<IconImage>
     {
@@ -51,15 +52,16 @@ namespace musicplayer
 
             SqlCommand command = new SqlCommand("INSERT INTO image_data (img_data) OUTPUT INSERTED.img_id VALUES (@data)", connection);
             MemoryStream stream = new MemoryStream();
-            data.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            data.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
             command.Parameters.AddWithValue("data", stream.ToArray());
 
             int? id = (int?)command.ExecuteScalar();
             data.Id = id;
 
             connection.Close();
+            stream.Close();
 
-            return id;
+			return id;
         }
     }
 }

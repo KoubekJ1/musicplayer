@@ -1,10 +1,12 @@
-﻿using System;
+﻿using musicplayer.dataobjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IDataObject = musicplayer.dataobjects.IDataObject;
 
-namespace musicplayer
+namespace musicplayer.dao
 {
     public interface IDAO<T> where T : IDataObject
     {

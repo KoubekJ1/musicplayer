@@ -2,7 +2,7 @@ USE [musicplayer]
 
 CREATE TABLE image_data (
 	img_id INT IDENTITY(1,1) PRIMARY KEY,
-	img_data VARBINARY(8000) NOT NULL
+	img_data VARBINARY(MAX) NOT NULL
 );
 
 CREATE TABLE song_data (

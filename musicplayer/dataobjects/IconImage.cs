@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace musicplayer
+namespace musicplayer.dataobjects
 {
     public class IconImage : IDataObject
     {
@@ -20,7 +20,7 @@ namespace musicplayer
 
         public IconImage(Bitmap image, int id)
         {
-            this._id = id;
+			_id = id;
             Image = image;
         }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace musicplayer
+namespace musicplayer.dataobjects
 {
     public interface IDataObject
     {

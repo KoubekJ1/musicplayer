@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace musicplayer
+namespace musicplayer.dataobjects
 {
     public class Song : IDataObject
     {
@@ -17,7 +17,7 @@ namespace musicplayer
 
         public Song(string name)
         {
-            this._name = name;
+            _name = name;
         }
 
         public int? GetID()

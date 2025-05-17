@@ -1,19 +1,21 @@
 ﻿using Microsoft.Data.SqlClient;
+using musicplayer.dataobjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace musicplayer
+namespace musicplayer.dao
 {
     public class ArtistDAO : IDAO<Artist>
     {
         public IEnumerable<Artist> GetAll()
         {
-            List<Artist> list = new List<Artist>();
+            LinkedList<Artist> artists = new LinkedList<Artist>();
+            LinkedList<int?> imageIDs = new LinkedList<int?>();
 
-            SqlConnection connection = DatabaseConnection.GetConnection();
+			SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
 
             SqlCommand command = new SqlCommand("SELECT ar_id, ar_name, ar_img_id FROM artists", connection);
@@ -24,12 +26,20 @@ namespace musicplayer
             {
                 artist = new Artist(reader.GetString(1));
                 artist.Id = reader.GetInt32(0);
-                list.Add(artist);
+				imageIDs.AddLast(reader.IsDBNull(2) ? null : reader.GetInt32(2));
+				artists.AddLast(artist);
             }
+
+            var imageEnumerator = imageIDs.GetEnumerator();
+			foreach (Artist artist1 in artists)
+            {
+                if (imageEnumerator.MoveNext() && imageEnumerator.Current != null)
+				artist1.Image = new IconImageDAO().GetByID((int)imageEnumerator.Current);
+			}
 
             connection.Close();
 
-            return list;
+            return artists;
         }
 
         public Artist? GetByID(int id)
@@ -44,7 +54,8 @@ namespace musicplayer
 
             Artist artist = new Artist(reader.GetString(1));
             artist.Id = reader.GetInt32(0);
-            int? imgID = reader.GetInt32(2);
+            int? imgID = null;
+			if (!reader.IsDBNull(2)) imgID = reader.GetInt32(2);
 
             connection.Close();
 
@@ -74,7 +85,7 @@ namespace musicplayer
 
             SqlCommand command = new SqlCommand("INSERT INTO artists (ar_name, ar_img_id) OUTPUT INSERTED.ar_id VALUES (@name, @img_id)", connection);
             command.Parameters.AddWithValue("name", artist.Name);
-            command.Parameters.AddWithValue("img_id", artist.Image != null ? artist.Image.Id : null);
+            command.Parameters.AddWithValue("img_id", artist.Image != null ? artist.Image.Id : DBNull.Value);
 
             int id = (int)command.ExecuteScalar();
 

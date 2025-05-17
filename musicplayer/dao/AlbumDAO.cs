@@ -1,11 +1,12 @@
 ﻿using Microsoft.Data.SqlClient;
+using musicplayer.dataobjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace musicplayer
+namespace musicplayer.dao
 {
     public class AlbumDAO : IDAO<Album>
     {
@@ -63,6 +64,46 @@ namespace musicplayer
             }
 
             return album;
+        }
+
+        public List<Album> GetArtistAlbums(int artistID)
+        {
+            List<Album> albums = new List<Album>();
+            LinkedList<int?> imageIDs = new LinkedList<int?>();
+
+            SqlConnection connection = DatabaseConnection.GetConnection();
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("SELECT alb_id, alb_img_id, alb_name FROM albums WHERE alb_ar_id = @artist_id", connection);
+            command.Parameters.AddWithValue("artist_id", artistID);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            Album album;
+            while (reader.Read())
+            {
+                album = new Album(reader.GetString(2));
+                album.Id = reader.GetInt32(0);
+                imageIDs.AddLast(reader[1] == DBNull.Value ? null : reader.GetInt32(1));
+                albums.Add(album);
+            }
+
+			connection.Close();
+
+			int i = 0;
+            foreach (int? id in imageIDs)
+            {
+                if (id == null)
+				{
+					i++;
+					continue;
+				}
+
+				albums[i].Image = new IconImageDAO().GetByID((int)id);
+                i++;
+            }
+
+            return albums;
         }
 
         public void Remove(int id)
