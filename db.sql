@@ -1,0 +1,48 @@
+USE [musicplayer]
+
+CREATE TABLE image_data (
+	img_id INT IDENTITY(1,1) PRIMARY KEY,
+	img_data VARBINARY(8000) NOT NULL
+);
+
+CREATE TABLE song_data (
+	sd_id INT IDENTITY(1,1) PRIMARY KEY,
+	sd_data VARBINARY(MAX) NOT NULL
+);
+
+CREATE TABLE artists (
+	ar_id INT IDENTITY(1,1) PRIMARY KEY,
+	ar_name NVARCHAR(50) NOT NULL,
+	ar_img_id INT NULL FOREIGN KEY REFERENCES image_data(img_id) ON DELETE SET NULL
+);
+
+CREATE TABLE albums (
+	alb_id INT IDENTITY(1,1) PRIMARY KEY,
+	alb_img_id INT NULL FOREIGN KEY REFERENCES image_data(img_id) ON DELETE SET NULL,
+	alb_ar_id INT NULL FOREIGN KEY REFERENCES artists(ar_id) ON DELETE SET NULL,
+	alb_name NVARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE genres (
+	ge_id INT IDENTITY(1,1) PRIMARY KEY,
+	ge_name NVARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE albums_genres (
+	ag_id INT IDENTITY(1,1) PRIMARY KEY,
+	ag_alb_id INT NOT NULL FOREIGN KEY REFERENCES albums(alb_id) ON DELETE CASCADE,
+	ag_ge_id INT NOT NULL FOREIGN KEY REFERENCES genres(ge_id) ON DELETE CASCADE
+);
+
+CREATE TABLE audio_formats (
+	af_id INT IDENTITY(1,1) PRIMARY KEY,
+	af_extension NVARCHAR(10) NOT NULL
+);
+
+CREATE TABLE songs (
+	so_id INT IDENTITY(1,1) PRIMARY KEY,
+	so_sd_id INT NULL FOREIGN KEY REFERENCES song_data(sd_id) ON DELETE SET NULL,
+	so_alb_id INT NULL FOREIGN KEY REFERENCES albums(alb_id) ON DELETE SET NULL,
+	so_name NVARCHAR(50) NOT NULL,
+	so_length INT NOT NULL,
+);
