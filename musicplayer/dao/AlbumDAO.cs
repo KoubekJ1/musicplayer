@@ -106,14 +106,61 @@ namespace musicplayer.dao
             return albums;
         }
 
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
+		public void Remove(int id)
+		{
+            SqlConnection connection = DatabaseConnection.GetConnection();
+			connection.Open();
+
+            SqlCommand command = new SqlCommand("DELETE FROM albums WHERE alb_id = @id", connection);
+			command.Parameters.AddWithValue("@id", id);
+			command.ExecuteNonQuery();
+
+            connection.Close();
+		}
 
         public int? Upload(Album data)
         {
-            throw new NotImplementedException();
+			if (data.Image != null && data.Image.Id == null)
+			{
+				data.Image.Id = new IconImageDAO().Upload(data.Image);
+			}
+
+			SqlConnection connection = DatabaseConnection.GetConnection();
+			connection.Open();
+
+			SqlCommand command = new SqlCommand("INSERT INTO albums (alb_img_id, alb_ar_id, alb_name) OUTPUT INSERTED.alb_id VALUES (@img_id, @ar_id, @name)", connection);
+			command.Parameters.AddWithValue("img_id", data.Image != null && data.Image.Id != null ? data.Image.Id : DBNull.Value);
+			command.Parameters.AddWithValue("ar_id", data.Artist != null && data.Artist.Id != null ? data.Artist.Id : DBNull.Value);
+			command.Parameters.AddWithValue("name", data.Name);
+
+			data.Id = (int?)command.ExecuteScalar();
+
+			connection.Close();
+
+            for (int i = 0; i < data.Songs.Count; i++)
+            {
+                if (data.Songs[i].Id == null)
+                {
+                    new SongDAO().Upload(data.Songs[i]);
+                }
+                CreateSongConnectionRow((int)data.Id, (int)data.Songs[i].Id, i);
+            }
+
+			return data.Id;
+		}
+
+        public void CreateSongConnectionRow(int albumID, int songID, int order)
+        {
+            SqlConnection connection = DatabaseConnection.GetConnection();
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("INSERT INTO album_songs (as_alb_id, as_so_id, as_order) VALUES (@albumID, @songID, @order)", connection);
+            command.Parameters.AddWithValue("albumID", albumID);
+            command.Parameters.AddWithValue("songID", songID);
+            command.Parameters.AddWithValue("order", order);
+			command.ExecuteNonQuery();
+
+			connection.Close();
         }
     }
 }

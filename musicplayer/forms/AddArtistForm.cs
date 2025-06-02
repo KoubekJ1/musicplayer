@@ -14,7 +14,11 @@ namespace musicplayer
 {
     public partial class AddArtistForm : Form
     {
-        public AddArtistForm()
+        private Artist? _artist;
+
+		public Artist? Artist { get => _artist; }
+
+		public AddArtistForm()
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -39,16 +43,16 @@ namespace musicplayer
 
         private void bAdd_Click(object sender, EventArgs e)
         {
-            Artist artist = new Artist(tbName.Text);
+            _artist = new Artist(tbName.Text);
             if (pbImage.Image != null)
             {
                 Bitmap bitmap = pbImage.Image as Bitmap;
-                if (bitmap != null) artist.Image = new IconImage(bitmap);
+                if (bitmap != null) _artist.Image = new IconImage(bitmap);
             }
             try
             {
-                new ArtistDAO().Upload(artist);
-                MessageBox.Show("Artist " + artist.Name + " added successfully", artist.Name);
+                new ArtistDAO().Upload(_artist);
+                MessageBox.Show("Artist " + _artist.Name + " added successfully", _artist.Name);
 			}
             catch (Exception ex)
             {

@@ -34,7 +34,7 @@
 			pbImage = new PictureBox();
 			bChange = new Button();
 			lSongs = new Label();
-			bAdd = new Button();
+			bAddSong = new Button();
 			bUp = new Button();
 			bDown = new Button();
 			bRemove = new Button();
@@ -92,14 +92,15 @@
 			lSongs.TabIndex = 5;
 			lSongs.Text = "Songs";
 			// 
-			// bAdd
+			// bAddSong
 			// 
-			bAdd.Location = new Point(189, 258);
-			bAdd.Name = "bAdd";
-			bAdd.Size = new Size(151, 29);
-			bAdd.TabIndex = 9;
-			bAdd.Text = "Add";
-			bAdd.UseVisualStyleBackColor = true;
+			bAddSong.Location = new Point(189, 258);
+			bAddSong.Name = "bAddSong";
+			bAddSong.Size = new Size(151, 29);
+			bAddSong.TabIndex = 9;
+			bAddSong.Text = "Add";
+			bAddSong.UseVisualStyleBackColor = true;
+			bAddSong.Click += bAddSong_Click;
 			// 
 			// bUp
 			// 
@@ -109,6 +110,7 @@
 			bUp.TabIndex = 11;
 			bUp.Text = "↑";
 			bUp.UseVisualStyleBackColor = true;
+			bUp.Click += bUp_Click;
 			// 
 			// bDown
 			// 
@@ -118,6 +120,7 @@
 			bDown.TabIndex = 12;
 			bDown.Text = "↓";
 			bDown.UseVisualStyleBackColor = true;
+			bDown.Click += bDown_Click;
 			// 
 			// bRemove
 			// 
@@ -187,7 +190,7 @@
 			Controls.Add(bRemove);
 			Controls.Add(bDown);
 			Controls.Add(bUp);
-			Controls.Add(bAdd);
+			Controls.Add(bAddSong);
 			Controls.Add(lSongs);
 			Controls.Add(bChange);
 			Controls.Add(pbImage);
@@ -207,7 +210,7 @@
 		private PictureBox pbImage;
 		private Button bChange;
 		private Label lSongs;
-		private Button bAdd;
+		private Button bAddSong;
 		private Button bUp;
 		private Button bDown;
 		private Button bRemove;

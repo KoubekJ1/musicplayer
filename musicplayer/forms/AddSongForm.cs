@@ -13,62 +13,74 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace musicplayer.forms
 {
-    public partial class AddSongForm : Form
-    {
-        private byte[]? songData;
+	public partial class AddSongForm : Form
+	{
+		private byte[]? _songData;
+		private Album? _album;
 
-        public AddSongForm()
-        {
-            InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-        }
+		private Song? _song;
 
-        private void AddSongForm_Load(object sender, EventArgs e)
-        {
+		public Song? Song { get => _song; }
 
-        }
+		public AddSongForm()
+		{
+			InitializeComponent();
+			this.FormBorderStyle = FormBorderStyle.FixedSingle;
+		}
 
-        private void bFile_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "MP3 Files (*.mp3)|*.mp3";
-            if (dialog.ShowDialog() != DialogResult.OK) return;
-            try
-            {
-                songData = File.ReadAllBytes(dialog.FileName);
-                lFile.Text = dialog.FileName;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Unable to load song: " + dialog.FileName, "Error");
-                return;
-            }
-        }
+		private void AddSongForm_Load(object sender, EventArgs e)
+		{
 
-        private void bAdd_Click(object sender, EventArgs e)
-        {
-            if (songData == null)
-            {
-                MessageBox.Show("Please load an MP3 file containing the song data.", "No song data");
-                return;
-            }
+		}
 
-            Song song = new Song(tbName.Text);
-            song.Data = songData;
-            song.Length = (int)AudioPlayerManager.GetDuration(songData);
+		private void bFile_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog dialog = new OpenFileDialog();
+			dialog.Filter = "MP3 Files (*.mp3)|*.mp3";
+			if (dialog.ShowDialog() != DialogResult.OK) return;
+			try
+			{
+				_songData = File.ReadAllBytes(dialog.FileName);
+				lFile.Text = dialog.FileName;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Unable to load song: " + dialog.FileName, "Error");
+				return;
+			}
+		}
 
-            SongDAO dao = new SongDAO();
-            song.Id = dao.Upload(song);
+		private void bAdd_Click(object sender, EventArgs e)
+		{
+			if (_songData == null)
+			{
+				MessageBox.Show("Please load an MP3 file containing the song data.", "No song data");
+				return;
+			}
 
-            if (song.Id == null)
-            {
-                MessageBox.Show("Upload failed due to an error.", "Error");
-            }
-            else
-            {
-                MessageBox.Show("Successfully uploaded \"" + song.Name + "\" to the database.", "Add Song");
-                this.Close();
-            }
-        }
-    }
+			_song = new Song(tbName.Text);
+			_song.Data = _songData;
+			_song.Length = (int)AudioPlayerManager.GetDuration(_songData);
+
+			SongDAO dao = new SongDAO();
+			_song.Id = dao.Upload(_song);
+
+			if (_song.Id == null)
+			{
+				MessageBox.Show("Upload failed due to an error.", "Error");
+			}
+			else
+			{
+				MessageBox.Show("Successfully uploaded \"" + _song.Name + "\" to the database.", "Add Song");
+				this.Close();
+			}
+		}
+
+		private void bSelectAlbum_Click(object sender, EventArgs e)
+		{
+			AlbumPicker picker = new AlbumPicker();
+			picker.ShowDialog();
+			_album = picker.Album;
+		}
+	}
 }

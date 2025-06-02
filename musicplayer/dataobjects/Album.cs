@@ -13,6 +13,7 @@ namespace musicplayer.dataobjects
         private int? id;
         private string _name;
         private IconImage? _image;
+        private Artist? _artist;
 
         private List<Song> _songs;
 
@@ -32,6 +33,7 @@ namespace musicplayer.dataobjects
         public IconImage? Image { get => _image; set => _image = value; }
 		public string Name { get => _name; set => _name = value; }
 		public List<Song> Songs { get => _songs; }
+		public Artist? Artist { get => _artist; set => _artist = value; }
 
 		public int? GetID()
         {

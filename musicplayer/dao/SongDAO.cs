@@ -18,18 +18,17 @@ namespace musicplayer.dao
             SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
 
-            SqlCommand command = new SqlCommand("SELECT so_id, so_sd_id, so_alb_id, so_name, so_length FROM songs", connection);
+            SqlCommand command = new SqlCommand("SELECT so_id, so_sd_id, so_name, so_length FROM songs", connection);
             
             SqlDataReader reader = command.ExecuteReader();
 
             Song song;
             while (reader.Read())
             {
-                song = new Song(reader.GetString(3));
+                song = new Song(reader.GetString(2));
                 song.Id = reader.GetInt32(0);
-                song.Length = reader.GetInt32(4);
+                song.Length = reader.GetInt32(3);
 				song.DataID = reader[1] != DBNull.Value ? reader.GetInt32(1) : null;
-				song.AlbumID = reader[2] != DBNull.Value ? reader.GetInt32(2) : null;
                 songs.AddLast(song);
 			}
 
@@ -49,9 +48,12 @@ namespace musicplayer.dao
             SqlDataReader reader = command.ExecuteReader();
             if (!reader.Read()) return null;
             Song song = new Song(reader.GetString(2));
-            int dataID = reader.GetInt32(1);
+            song.Id = reader.GetInt32(0);
+			song.Length = reader.GetInt32(3);
+			song.DataID = reader[1] != DBNull.Value ? reader.GetInt32(1) : null;
 
-            connection.Close();
+
+			connection.Close();
 
             //song.Data = GetSongData(dataID);
 
@@ -112,9 +114,9 @@ namespace musicplayer.dao
             SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
 
-            SqlCommand command = new SqlCommand("INSERT INTO songs (so_sd_id, so_alb_id, so_name, so_length) OUTPUT INSERTED.so_id VALUES (@data_id, @alb_id, @name, @length)", connection);
+            SqlCommand command = new SqlCommand("INSERT INTO songs (so_sd_id, so_name, so_length) OUTPUT INSERTED.so_id VALUES (@data_id, @name, @length)", connection);
             command.Parameters.AddWithValue("data_id", dataID);
-            command.Parameters.AddWithValue("alb_id", song.AlbumID != null ? song.AlbumID : DBNull.Value);
+            //command.Parameters.AddWithValue("alb_id", song.AlbumID != null ? song.AlbumID : DBNull.Value);
             command.Parameters.AddWithValue("name", song.Name);
             command.Parameters.AddWithValue("length", song.Length);
 
