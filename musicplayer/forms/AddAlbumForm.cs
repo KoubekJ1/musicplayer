@@ -1,4 +1,6 @@
-﻿using System;
+﻿using musicplayer.dao;
+using musicplayer.dataobjects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,11 +18,35 @@ namespace musicplayer
 		{
 			InitializeComponent();
 			this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+			try
+			{
+				foreach (Song song in new SongDAO().GetAll().OrderBy(song => song.Name))
+				{
+					lbAllSongs.Items.Add(song);
+				}
+			}
+			catch (Exception ex)
+			{
+				ErrorHandler.HandleException(ex, "Unable to retrieve songs", "Unable to retrieve songs from the database due to an internal database error.");
+			}
 		}
 
 		private void bChange_Click(object sender, EventArgs e)
 		{
-
+			OpenFileDialog dialog = new OpenFileDialog();
+			dialog.Filter = "All files (*.*)|*.*|JPEG (*.jpeg)|*.jpeg|PNG (*.png)|*.png|Bitmap (*.bmp)|*.bmp";
+			if (dialog.ShowDialog() != DialogResult.OK) return;
+			try
+			{
+				pbImage.Image = IconImage.ResizeImage(new Bitmap(dialog.FileName), 256, 256);
+				pbImage.SizeMode = PictureBoxSizeMode.StretchImage;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Unable to load image: " + dialog.FileName, "Error");
+				return;
+			}
 		}
 	}
 }

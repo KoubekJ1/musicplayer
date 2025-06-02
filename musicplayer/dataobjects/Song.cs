@@ -14,6 +14,7 @@ namespace musicplayer.dataobjects
         private int length;
 
         private int? albumID; // Used when uploading to the database
+        private int? dataID;
 
         public Song(string name)
         {
@@ -30,10 +31,17 @@ namespace musicplayer.dataobjects
             if (_data == null) return;
             AudioPlayerManager.GetPlayerManager().PlayAudio(_data, replace);
         }
-        public byte[]? Data { get => _data; set => _data = value; }
+
+		public override string? ToString()
+		{
+            return _name;
+		}
+
+		public byte[]? Data { get => _data; set => _data = value; }
         public string Name { get => _name; set => _name = value; }
         public int? Id { get => id; set => id = value; }
         public int? AlbumID { get => albumID; set => albumID = value; }
         public int Length { get => length; set => length = value; }
-    }
+		public int? DataID { get => dataID; set => dataID = value; }
+	}
 }

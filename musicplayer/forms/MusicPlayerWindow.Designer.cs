@@ -35,13 +35,13 @@
 			addToolStripMenuItem = new ToolStripMenuItem();
 			artistToolStripMenuItem = new ToolStripMenuItem();
 			albumToolStripMenuItem = new ToolStripMenuItem();
+			songToolStripMenuItem = new ToolStripMenuItem();
 			helpToolStripMenuItem = new ToolStripMenuItem();
 			aboutToolStripMenuItem = new ToolStripMenuItem();
 			panelMenu = new Panel();
 			bSongs = new Button();
 			bAlbums = new Button();
 			bArtists = new Button();
-			songToolStripMenuItem = new ToolStripMenuItem();
 			menuStrip1.SuspendLayout();
 			panelMenu.SuspendLayout();
 			SuspendLayout();
@@ -97,6 +97,14 @@
 			albumToolStripMenuItem.Name = "albumToolStripMenuItem";
 			albumToolStripMenuItem.Size = new Size(224, 26);
 			albumToolStripMenuItem.Text = "Album";
+			albumToolStripMenuItem.Click += albumToolStripMenuItem_Click;
+			// 
+			// songToolStripMenuItem
+			// 
+			songToolStripMenuItem.Name = "songToolStripMenuItem";
+			songToolStripMenuItem.Size = new Size(224, 26);
+			songToolStripMenuItem.Text = "Song";
+			songToolStripMenuItem.Click += songToolStripMenuItem_Click;
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -153,13 +161,6 @@
 			bArtists.Text = "Artists";
 			bArtists.UseVisualStyleBackColor = true;
 			bArtists.Click += buttonArtists_Click;
-			// 
-			// songToolStripMenuItem
-			// 
-			songToolStripMenuItem.Name = "songToolStripMenuItem";
-			songToolStripMenuItem.Size = new Size(224, 26);
-			songToolStripMenuItem.Text = "Song";
-			songToolStripMenuItem.Click += songToolStripMenuItem_Click;
 			// 
 			// MusicPlayerWindow
 			// 

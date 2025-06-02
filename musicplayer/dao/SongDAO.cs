@@ -13,7 +13,29 @@ namespace musicplayer.dao
     {
         public IEnumerable<Song> GetAll()
         {
-            throw new NotImplementedException();
+            LinkedList<Song> songs = new LinkedList<Song>();
+
+            SqlConnection connection = DatabaseConnection.GetConnection();
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("SELECT so_id, so_sd_id, so_alb_id, so_name, so_length FROM songs", connection);
+            
+            SqlDataReader reader = command.ExecuteReader();
+
+            Song song;
+            while (reader.Read())
+            {
+                song = new Song(reader.GetString(3));
+                song.Id = reader.GetInt32(0);
+                song.Length = reader.GetInt32(4);
+				song.DataID = reader[1] != DBNull.Value ? reader.GetInt32(1) : null;
+				song.AlbumID = reader[2] != DBNull.Value ? reader.GetInt32(2) : null;
+                songs.AddLast(song);
+			}
+
+            connection.Close();
+
+            return songs;
         }
 
         public Song? GetByID(int id)
@@ -31,7 +53,7 @@ namespace musicplayer.dao
 
             connection.Close();
 
-            song.Data = GetSongData(dataID);
+            //song.Data = GetSongData(dataID);
 
             return song;
         }

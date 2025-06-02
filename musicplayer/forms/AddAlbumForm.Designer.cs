@@ -33,9 +33,7 @@
 			tbName = new TextBox();
 			pbImage = new PictureBox();
 			bChange = new Button();
-			lvSongs = new ListView();
 			lSongs = new Label();
-			lvAllSongs = new ListView();
 			label1 = new Label();
 			tbSearch = new TextBox();
 			bAdd = new Button();
@@ -44,6 +42,8 @@
 			bDown = new Button();
 			bRemove = new Button();
 			bAddAlbum = new Button();
+			lbAllSongs = new ListBox();
+			lbSongs = new ListBox();
 			((System.ComponentModel.ISupportInitialize)pbImage).BeginInit();
 			SuspendLayout();
 			// 
@@ -82,15 +82,7 @@
 			bChange.TabIndex = 3;
 			bChange.Text = "Change";
 			bChange.UseVisualStyleBackColor = true;
-			bChange.Click += this.bChange_Click;
-			// 
-			// lvSongs
-			// 
-			lvSongs.Location = new Point(189, 32);
-			lvSongs.Name = "lvSongs";
-			lvSongs.Size = new Size(151, 158);
-			lvSongs.TabIndex = 4;
-			lvSongs.UseCompatibleStateImageBehavior = false;
+			bChange.Click += bChange_Click;
 			// 
 			// lSongs
 			// 
@@ -100,14 +92,6 @@
 			lSongs.Size = new Size(49, 20);
 			lSongs.TabIndex = 5;
 			lSongs.Text = "Songs";
-			// 
-			// lvAllSongs
-			// 
-			lvAllSongs.Location = new Point(395, 32);
-			lvAllSongs.Name = "lvAllSongs";
-			lvAllSongs.Size = new Size(151, 158);
-			lvAllSongs.TabIndex = 6;
-			lvAllSongs.UseCompatibleStateImageBehavior = false;
 			// 
 			// label1
 			// 
@@ -127,7 +111,7 @@
 			// 
 			// bAdd
 			// 
-			bAdd.Location = new Point(395, 196);
+			bAdd.Location = new Point(395, 202);
 			bAdd.Name = "bAdd";
 			bAdd.Size = new Size(151, 29);
 			bAdd.TabIndex = 9;
@@ -163,7 +147,7 @@
 			// 
 			// bRemove
 			// 
-			bRemove.Location = new Point(189, 196);
+			bRemove.Location = new Point(189, 202);
 			bRemove.Name = "bRemove";
 			bRemove.Size = new Size(151, 29);
 			bRemove.TabIndex = 13;
@@ -179,11 +163,29 @@
 			bAddAlbum.Text = "Add Album";
 			bAddAlbum.UseVisualStyleBackColor = true;
 			// 
+			// lbAllSongs
+			// 
+			lbAllSongs.FormattingEnabled = true;
+			lbAllSongs.Location = new Point(395, 32);
+			lbAllSongs.Name = "lbAllSongs";
+			lbAllSongs.Size = new Size(151, 164);
+			lbAllSongs.TabIndex = 15;
+			// 
+			// lbSongs
+			// 
+			lbSongs.FormattingEnabled = true;
+			lbSongs.Location = new Point(189, 32);
+			lbSongs.Name = "lbSongs";
+			lbSongs.Size = new Size(151, 164);
+			lbSongs.TabIndex = 16;
+			// 
 			// AddAlbumForm
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(779, 293);
+			Controls.Add(lbSongs);
+			Controls.Add(lbAllSongs);
 			Controls.Add(bAddAlbum);
 			Controls.Add(bRemove);
 			Controls.Add(bDown);
@@ -192,9 +194,7 @@
 			Controls.Add(bAdd);
 			Controls.Add(tbSearch);
 			Controls.Add(label1);
-			Controls.Add(lvAllSongs);
 			Controls.Add(lSongs);
-			Controls.Add(lvSongs);
 			Controls.Add(bChange);
 			Controls.Add(pbImage);
 			Controls.Add(tbName);
@@ -212,9 +212,7 @@
 		private TextBox tbName;
 		private PictureBox pbImage;
 		private Button bChange;
-		private ListView lvSongs;
 		private Label lSongs;
-		private ListView lvAllSongs;
 		private Label label1;
 		private TextBox tbSearch;
 		private Button bAdd;
@@ -223,5 +221,7 @@
 		private Button bDown;
 		private Button bRemove;
 		private Button bAddAlbum;
+		private ListBox lbAllSongs;
+		private ListBox lbSongs;
 	}
 }
