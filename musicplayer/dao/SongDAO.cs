@@ -106,6 +106,7 @@ namespace musicplayer.dao
         {
             if (song.Data == null) return null;
             int? dataID = UploadSongData(song.Data);
+            song.DataID = dataID;
             if (dataID == null) return null;
 
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -115,7 +116,7 @@ namespace musicplayer.dao
             command.Parameters.AddWithValue("data_id", dataID);
             command.Parameters.AddWithValue("alb_id", song.AlbumID != null ? song.AlbumID : DBNull.Value);
             command.Parameters.AddWithValue("name", song.Name);
-            command.Parameters.AddWithValue("length", 120);
+            command.Parameters.AddWithValue("length", song.Length);
 
             int? id = (int?)command.ExecuteScalar();
             song.Id = id;

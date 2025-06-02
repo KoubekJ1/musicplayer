@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using musicplayer.forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +39,7 @@ namespace musicplayer
 
 		private void songToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-
+			new AddSongForm().ShowDialog();
 		}
 
 		private void albumToolStripMenuItem_Click(object sender, EventArgs e)

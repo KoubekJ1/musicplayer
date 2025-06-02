@@ -53,6 +53,12 @@ namespace musicplayer
 			_outputDevice.Dispose();
 		}
 
+		public static int? GetDuration(byte[] data)
+		{
+			MemoryStream memoryStream = new MemoryStream(data);
+			return (int)Math.Ceiling(new Mp3FileReader(memoryStream).TotalTime.TotalSeconds);
+		}
+
 		private WaveOutEvent _outputDevice;
 
 		private AudioPlayerManager()
