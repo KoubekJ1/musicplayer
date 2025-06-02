@@ -44,5 +44,10 @@ namespace musicplayer.dataobjects
 			if (_id == null) return;
             _albums = new AlbumDAO().GetArtistAlbums((int)_id);
         }
-    }
+
+		public override string? ToString()
+		{
+            return _name;
+		}
+	}
 }
