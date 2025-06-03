@@ -1,4 +1,6 @@
-﻿using NAudio.Wave;
+﻿using musicplayer.controls;
+using musicplayer.dataobjects;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +14,7 @@ namespace musicplayer
 {
 	public class AudioPlayerManager
 	{
-		private static AudioPlayerManager s_instance;
+		private static AudioPlayerManager? s_instance;
 		private static object s_instanceLock = new object();
 		public static AudioPlayerManager GetPlayerManager()
 		{
@@ -22,47 +24,66 @@ namespace musicplayer
 				return s_instance;
 			}
 		}
-
-		public void PlayAudio(byte[] data, bool replace)
-		{
-			if (_outputDevice != null)
-			{
-				if (replace) return;
-				_outputDevice.Dispose();
-			}
-
-			_outputDevice = new WaveOutEvent();
-
-			MemoryStream memoryStream = new MemoryStream(data);
-			/*RawSourceWaveStream waveStream = new RawSourceWaveStream(memoryStream, new WaveFormat(44100, 16, 2));
-			_outputDevice.Init(waveStream);*/
-
-			/*AudioFileReader reader = new AudioFileReader(@"e:\Development\VS2022\musicplayer\you wont see me.mp3");
-			_outputDevice.Init(reader);*/
-
-			Mp3FileReader reader = new Mp3FileReader(memoryStream);
-			_outputDevice.Init(reader);
-
-			_outputDevice.Play();
-
-			while (_outputDevice.PlaybackState == PlaybackState.Playing)
-			{
-				Thread.Sleep(1000);
-			}
-
-			_outputDevice.Dispose();
-		}
-
 		public static int? GetDuration(byte[] data)
 		{
 			MemoryStream memoryStream = new MemoryStream(data);
 			return (int)Math.Ceiling(new Mp3FileReader(memoryStream).TotalTime.TotalSeconds);
 		}
 
-		private WaveOutEvent _outputDevice;
-
+		private WaveOutEvent? _outputDevice;
+		private Mp3FileReader? _fileReader;
+		private Task? _updateProgressBarTask;
 		private AudioPlayerManager()
 		{
+		}
+
+		public void PlayAudio(byte[] data, bool replace)
+		{
+			if (_outputDevice != null)
+			{
+				if (!replace) return;
+				//_outputDevice.Stop();
+				_outputDevice.Dispose();
+			}
+			_outputDevice = new WaveOutEvent();
+
+			MemoryStream memoryStream = new MemoryStream(data);
+
+			_fileReader = new Mp3FileReader(memoryStream);
+			//memoryStream.Close();
+			_outputDevice.Init(_fileReader);
+
+			_outputDevice.PlaybackStopped += OnPlaybackStopped;
+
+			_updateProgressBarTask = Task.Run(UpdateProgressBarTask);
+			_outputDevice.Play();
+
+		}
+
+		public void Stop()
+		{
+			_outputDevice?.Stop();
+		}
+		public void Dispose()
+		{
+			_outputDevice?.Dispose();
+			_fileReader?.Dispose();
+			_updateProgressBarTask?.Dispose();
+		}
+
+		private void OnPlaybackStopped(object? sender, EventArgs args)
+		{
+			Dispose();
+		}
+
+		private void UpdateProgressBarTask()
+		{
+			if (_outputDevice == null || _fileReader == null) return;
+			while (true)
+			{
+				PlayerControl.GetPlayerControl().SetProgress(_outputDevice.GetPosition() / (float)_fileReader.Length);
+				Thread.Sleep(1000);
+			}
 		}
 	}
 }

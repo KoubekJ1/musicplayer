@@ -53,20 +53,8 @@ namespace musicplayer
 			if (button == null) return;
 			Artist? artist = artistButtons[button];
 			if (artist == null) return;
-			try
-			{
-				artist.LoadAlbums();
-			}
-			catch (Exception ex)
-			{
-				ErrorHandler.HandleException(ex, "Unable to load albums", "Unable to load artist albums due to an internal server error.");
-				return;
-			}
-			flpAlbs.Controls.Clear();
-			foreach (Album album in artist.Albums)
-			{
-				flpAlbs.Controls.Add(new AlbumDisplayControl(album));
-			}
+			pArtistContent.Controls.Clear();
+			pArtistContent.Controls.Add(new AlbumsListControl(artist, pArtistContent));
 		}
 	}
 }

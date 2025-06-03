@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using musicplayer.controls;
 using musicplayer.forms;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ namespace musicplayer
 		public MusicPlayerWindow()
 		{
 			InitializeComponent();
+			PlayerControl control = PlayerControl.GetPlayerControl();
+			control.Dock = DockStyle.Top;
+			this.Controls.Add(control);
 		}
 
 		private void artistToolStripMenuItem_Click(object sender, EventArgs e)
@@ -45,6 +49,11 @@ namespace musicplayer
 		private void albumToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			new AddAlbumForm().ShowDialog();
+		}
+
+		private void MusicPlayerWindow_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

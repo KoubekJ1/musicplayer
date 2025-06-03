@@ -29,7 +29,9 @@ namespace musicplayer.dataobjects
         public void PlaySong(bool replace)
         {
             if (_data == null) return;
+            AudioPlayerManager.GetPlayerManager().Stop();
             AudioPlayerManager.GetPlayerManager().PlayAudio(_data, replace);
+			_data = null;
         }
 
 		public override string? ToString()

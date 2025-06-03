@@ -38,8 +38,8 @@
 			button.Name = "button";
 			button.Size = new Size(194, 200);
 			button.TabIndex = 0;
-			button.Text = "button1";
 			button.UseVisualStyleBackColor = true;
+			button.Click += button_Click;
 			// 
 			// label
 			// 
@@ -49,8 +49,9 @@
 			label.Name = "label";
 			label.Size = new Size(194, 43);
 			label.TabIndex = 1;
-			label.Text = "label1";
+			label.Text = "Artist Name";
 			label.TextAlign = ContentAlignment.MiddleCenter;
+			label.Click += label_Click;
 			// 
 			// AlbumDisplayControl
 			// 

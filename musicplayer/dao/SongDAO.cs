@@ -62,30 +62,30 @@ namespace musicplayer.dao
 
         public List<Song> GetSongsFromAlbum(int albumID)
         {
-            LinkedList<int> songDataIDs = new LinkedList<int>();
-            List<Song> songs = new List<Song>();
+            LinkedList<int> songIDs = new LinkedList<int>();
 
             SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
 
-            SqlCommand command = new SqlCommand("SELECT so_id, so_sd_id, so_name, so_length FROM songs WHERE so_alb_id = @id", connection);
+            SqlCommand command = new SqlCommand("SELECT so_id FROM songs INNER JOIN album_songs ON as_so_id = so_id WHERE as_alb_id = @id", connection);
             command.Parameters.AddWithValue("id", albumID);
 
             SqlDataReader reader = command.ExecuteReader();
-            Song song;
+
             while (reader.Read())
             {
-                song = new Song(reader.GetString(2));
-                songDataIDs.AddLast(reader.GetInt32(1));
-            }
+                songIDs.AddLast(reader.GetInt32(0));
+			}
 
-            connection.Close();
+			connection.Close();
 
-            int i = 0;
-            foreach (int songDataID in songDataIDs)
+            List<Song> songs = new List<Song>(songIDs.Count);
+
+            foreach (int i in songIDs)
             {
-                songs[i].Data = GetSongData(songDataID);
-                i++;
+                Song? song = GetByID(i);
+                if (song == null) continue;
+                songs.Add(song);
             }
 
             return songs;

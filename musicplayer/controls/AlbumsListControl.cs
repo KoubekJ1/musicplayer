@@ -13,14 +13,27 @@ namespace musicplayer
 {
 	public partial class AlbumsListControl : UserControl
 	{
-		public AlbumsListControl()
+		private Artist _artist;
+		private Control _artistContentControl;
+
+		public AlbumsListControl(Artist artist, Control artistContentControl)
 		{
 			InitializeComponent();
-		}
-
-		public void AddAlbum(Album album)
-		{
-			Controls.Add(new AlbumDisplayControl(album));
+			_artist = artist;
+			_artistContentControl = artistContentControl;
+			try
+			{
+				artist.LoadAlbums();
+			}
+			catch (Exception ex)
+			{
+				ErrorHandler.HandleException(ex, "Unable to load albums", "Unable to load artist albums due to an internal server error.");
+				return;
+			}
+			foreach (Album album in artist.Albums)
+			{
+				flpAlbs.Controls.Add(new AlbumDisplayControl(album, artistContentControl));
+			}
 		}
 	}
 }

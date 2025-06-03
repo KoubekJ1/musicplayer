@@ -32,18 +32,12 @@ namespace musicplayer.dataobjects
         public int? Id { get => id; set => id = value; }
         public IconImage? Image { get => _image; set => _image = value; }
 		public string Name { get => _name; set => _name = value; }
-		public List<Song> Songs { get => _songs; }
+		public List<Song> Songs { get => _songs; set => _songs = value; }
 		public Artist? Artist { get => _artist; set => _artist = value; }
 
 		public int? GetID()
         {
             return id;
-        }
-
-        public void LoadSongs()
-        {
-            if (id == null) return;
-            _songs = new SongDAO().GetSongsFromAlbum((int)id);
         }
     }
 }

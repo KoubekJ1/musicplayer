@@ -88,21 +88,21 @@
 			// artistToolStripMenuItem
 			// 
 			artistToolStripMenuItem.Name = "artistToolStripMenuItem";
-			artistToolStripMenuItem.Size = new Size(224, 26);
+			artistToolStripMenuItem.Size = new Size(136, 26);
 			artistToolStripMenuItem.Text = "Artist";
 			artistToolStripMenuItem.Click += artistToolStripMenuItem_Click;
 			// 
 			// albumToolStripMenuItem
 			// 
 			albumToolStripMenuItem.Name = "albumToolStripMenuItem";
-			albumToolStripMenuItem.Size = new Size(224, 26);
+			albumToolStripMenuItem.Size = new Size(136, 26);
 			albumToolStripMenuItem.Text = "Album";
 			albumToolStripMenuItem.Click += albumToolStripMenuItem_Click;
 			// 
 			// songToolStripMenuItem
 			// 
 			songToolStripMenuItem.Name = "songToolStripMenuItem";
-			songToolStripMenuItem.Size = new Size(224, 26);
+			songToolStripMenuItem.Size = new Size(136, 26);
 			songToolStripMenuItem.Text = "Song";
 			songToolStripMenuItem.Click += songToolStripMenuItem_Click;
 			// 
@@ -174,6 +174,7 @@
 			Margin = new Padding(2, 4, 2, 4);
 			Name = "MusicPlayerWindow";
 			Text = "Music Player";
+			Load += MusicPlayerWindow_Load;
 			menuStrip1.ResumeLayout(false);
 			menuStrip1.PerformLayout();
 			panelMenu.ResumeLayout(false);

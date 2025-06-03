@@ -28,17 +28,29 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			flpAlbs = new FlowLayoutPanel();
 			SuspendLayout();
 			// 
-			// AlbumsControl
+			// flpAlbs
+			// 
+			flpAlbs.Dock = DockStyle.Fill;
+			flpAlbs.Location = new Point(0, 0);
+			flpAlbs.Name = "flpAlbs";
+			flpAlbs.Size = new Size(1398, 1057);
+			flpAlbs.TabIndex = 0;
+			// 
+			// AlbumsListControl
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
-			Name = "AlbumsControl";
+			Controls.Add(flpAlbs);
+			Name = "AlbumsListControl";
 			Size = new Size(1398, 1057);
 			ResumeLayout(false);
 		}
 
 		#endregion
+
+		private FlowLayoutPanel flpAlbs;
 	}
 }

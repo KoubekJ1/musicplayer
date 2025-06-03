@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			flpArtists = new FlowLayoutPanel();
-			flpAlbs = new FlowLayoutPanel();
+			pArtistContent = new Panel();
 			SuspendLayout();
 			// 
 			// flpArtists
@@ -41,19 +41,19 @@
 			flpArtists.Size = new Size(300, 711);
 			flpArtists.TabIndex = 0;
 			// 
-			// flpAlbs
+			// panelArtistContent
 			// 
-			flpAlbs.Dock = DockStyle.Right;
-			flpAlbs.Location = new Point(306, 0);
-			flpAlbs.Name = "flpAlbs";
-			flpAlbs.Size = new Size(783, 711);
-			flpAlbs.TabIndex = 1;
+			pArtistContent.Dock = DockStyle.Right;
+			pArtistContent.Location = new Point(306, 0);
+			pArtistContent.Name = "panelArtistContent";
+			pArtistContent.Size = new Size(783, 711);
+			pArtistContent.TabIndex = 1;
 			// 
 			// ArtistsControl
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
-			Controls.Add(flpAlbs);
+			Controls.Add(pArtistContent);
 			Controls.Add(flpArtists);
 			Name = "ArtistsControl";
 			Size = new Size(1089, 711);
@@ -63,6 +63,6 @@
 		#endregion
 
 		private FlowLayoutPanel flpArtists;
-		private FlowLayoutPanel flpAlbs;
+		private Panel pArtistContent;
 	}
 }
