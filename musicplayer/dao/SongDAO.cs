@@ -67,7 +67,7 @@ namespace musicplayer.dao
             SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
 
-            SqlCommand command = new SqlCommand("SELECT so_id FROM songs INNER JOIN album_songs ON as_so_id = so_id WHERE as_alb_id = @id", connection);
+            SqlCommand command = new SqlCommand("SELECT so_id FROM songs INNER JOIN album_songs ON as_so_id = so_id WHERE as_alb_id = @id ORDER BY as_order ASC", connection);
             command.Parameters.AddWithValue("id", albumID);
 
             SqlDataReader reader = command.ExecuteReader();

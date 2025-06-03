@@ -1,4 +1,5 @@
-﻿using System;
+﻿using musicplayer.controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,10 @@ namespace musicplayer.dataobjects
         private int? id;
         private string _name;
         private byte[]? _data;
-        private int length;
+        private int _length;
 
-        private int? albumID; // Used when uploading to the database
-        private int? dataID;
+        private Album? _album;
+        private int? _dataID;
 
         public Song(string name)
         {
@@ -26,12 +27,13 @@ namespace musicplayer.dataobjects
             return id;
         }
 
-        public void PlaySong(bool replace)
+        public bool PlaySong(bool replace)
         {
-            if (_data == null) return;
-            AudioPlayerManager.GetPlayerManager().Stop();
-            AudioPlayerManager.GetPlayerManager().PlayAudio(_data, replace);
-			_data = null;
+            //AudioPlayerManager.GetPlayerManager().Stop();
+			//AudioPlayerManager.GetPlayerManager().PlayAudio(_data, replace);
+			if (!AudioPlayerManager.GetPlayerManager().PlaySong(this)) return false;
+
+            return true;
         }
 
 		public override string? ToString()
@@ -42,8 +44,8 @@ namespace musicplayer.dataobjects
 		public byte[]? Data { get => _data; set => _data = value; }
         public string Name { get => _name; set => _name = value; }
         public int? Id { get => id; set => id = value; }
-        public int? AlbumID { get => albumID; set => albumID = value; }
-        public int Length { get => length; set => length = value; }
-		public int? DataID { get => dataID; set => dataID = value; }
+        public int Length { get => _length; set => _length = value; }
+		public int? DataID { get => _dataID; set => _dataID = value; }
+		public Album? Album { get => _album; set => _album = value; }
 	}
 }

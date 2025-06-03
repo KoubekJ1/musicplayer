@@ -28,6 +28,7 @@ namespace musicplayer.controls
 
 			foreach (Song song in album.Songs)
 			{
+				song.Album = _album;
 				SongControl songControl = new SongControl(song);
 				flpSongs.Controls.Add(songControl);
 			}

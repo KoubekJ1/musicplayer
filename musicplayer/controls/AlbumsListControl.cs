@@ -33,6 +33,7 @@ namespace musicplayer
 			foreach (Album album in artist.Albums)
 			{
 				flpAlbs.Controls.Add(new AlbumDisplayControl(album, artistContentControl));
+				album.Artist = _artist;
 			}
 		}
 	}

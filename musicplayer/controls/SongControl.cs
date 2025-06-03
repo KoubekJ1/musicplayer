@@ -28,18 +28,15 @@ namespace musicplayer.controls
 
 		private void bPlay_Click(object sender, EventArgs e)
 		{
-			if (_song.Data == null && _song.DataID != null)
+			if (!_song.PlaySong(true)) MessageBox.Show("Unable to load song data!", "Error");
+			if (_song.Album == null) return;
+			for (int i = _song.Album.Songs.IndexOf(_song) + 1; i < _song.Album.Songs.Count; i++)
 			{
-				_song.Data = new SongDAO().GetSongData((int)_song.DataID);
+				AudioPlayerManager.GetPlayerManager().AddToQueue(_song.Album.Songs[i]);
 			}
-
-			if (_song.Data != null)
+			for (int i = _song.Album.Songs.IndexOf(_song) - 1; i >= 0; i--)
 			{
-				_song.PlaySong(true);
-			}
-			else
-			{
-				MessageBox.Show("Unable to load song data", "Error");
+				AudioPlayerManager.GetPlayerManager().AddToHistory(_song.Album.Songs[i]);
 			}
 		}
 	}

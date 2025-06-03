@@ -49,6 +49,7 @@
 			bBack.TabIndex = 0;
 			bBack.Text = "<<";
 			bBack.UseVisualStyleBackColor = true;
+			bBack.Click += bBack_Click;
 			// 
 			// bPlayPause
 			// 
@@ -69,6 +70,7 @@
 			bNext.TabIndex = 2;
 			bNext.Text = ">>";
 			bNext.UseVisualStyleBackColor = true;
+			bNext.Click += bNext_Click;
 			// 
 			// trbProgress
 			// 
@@ -79,6 +81,7 @@
 			trbProgress.Size = new Size(600, 56);
 			trbProgress.TabIndex = 3;
 			trbProgress.TickFrequency = 100;
+			trbProgress.Scroll += trbProgress_Scroll;
 			// 
 			// lSongName
 			// 
@@ -100,6 +103,8 @@
 			trbVolume.Size = new Size(200, 56);
 			trbVolume.TabIndex = 5;
 			trbVolume.TickFrequency = 100;
+			trbVolume.Value = 100;
+			trbVolume.Scroll += trbVolume_Scroll;
 			// 
 			// lVolume
 			// 

@@ -29,7 +29,8 @@ namespace musicplayer
 				button.Height = 100;
 				button.AutoSize = true;
 				button.AutoSizeMode = AutoSizeMode.GrowOnly;
-				button.TextAlign = ContentAlignment.MiddleRight;
+				//button.TextAlign = ContentAlignment.MiddleRight;
+				button.TextAlign = ContentAlignment.MiddleCenter;
 				flpArtists.Controls.Add(button);
 
 				PictureBox pictureBox = new PictureBox();

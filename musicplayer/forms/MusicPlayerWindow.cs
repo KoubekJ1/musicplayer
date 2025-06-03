@@ -22,6 +22,12 @@ namespace musicplayer
 			PlayerControl control = PlayerControl.GetPlayerControl();
 			control.Dock = DockStyle.Top;
 			this.Controls.Add(control);
+			this.FormClosing += DisposeAudioManager;
+		}
+
+		private void DisposeAudioManager(object? sender, FormClosingEventArgs e)
+		{
+			AudioPlayerManager.GetPlayerManager().Dispose();
 		}
 
 		private void artistToolStripMenuItem_Click(object sender, EventArgs e)
