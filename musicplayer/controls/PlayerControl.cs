@@ -49,6 +49,12 @@ namespace musicplayer.controls
 			set => lArtist.Text = value;
 		}
 
+		public string PlayButtonText
+		{
+			get => bPlayPause.Text;
+			set => bPlayPause.Text = value;
+		}
+
 		public void Enable()
 		{
 			bBack.Enabled = true;
@@ -76,6 +82,8 @@ namespace musicplayer.controls
 			lSongName.Text = NO_SONG_TEXT;
 			lArtist.Enabled = false;
 			lArtist.Text = NO_ARTIST_TEXT;
+
+			bPlayPause.Text = "Play";
 
 			StopTimer();
 		}
@@ -121,6 +129,18 @@ namespace musicplayer.controls
 		private void bNext_Click(object sender, EventArgs e)
 		{
 			AudioPlayerManager.GetPlayerManager().Next();
+		}
+
+		private void bPlayPause_Click(object sender, EventArgs e)
+		{
+			if (AudioPlayerManager.GetPlayerManager().TogglePause())
+			{
+				PlayButtonText = "Stop";
+			}
+			else
+			{
+				PlayButtonText = "Play";
+			}
 		}
 	}
 }

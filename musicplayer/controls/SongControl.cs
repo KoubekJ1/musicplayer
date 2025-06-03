@@ -28,6 +28,7 @@ namespace musicplayer.controls
 
 		private void bPlay_Click(object sender, EventArgs e)
 		{
+			AudioPlayerManager.GetPlayerManager().Clear();
 			if (!_song.PlaySong(true)) MessageBox.Show("Unable to load song data!", "Error");
 			if (_song.Album == null) return;
 			for (int i = _song.Album.Songs.IndexOf(_song) + 1; i < _song.Album.Songs.Count; i++)

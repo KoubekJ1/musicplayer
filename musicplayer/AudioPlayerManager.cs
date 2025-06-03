@@ -37,13 +37,13 @@ namespace musicplayer
 		private MemoryStream? _stream;
 		private float volume;
 
-		private Queue<Song> _songQueue;
-		private Queue<Song> _songHistory;
+		private LinkedList<Song> _songQueue;
+		private LinkedList<Song> _songHistory;
 		private AudioPlayerManager()
 		{
 			volume = 1.0f;
-			_songQueue = new Queue<Song>();
-			_songHistory = new Queue<Song>();
+			_songQueue = new LinkedList<Song>();
+			_songHistory = new LinkedList<Song>();
 		}
 
 		public bool PlaySong(Song song, bool replace = true)
@@ -53,7 +53,7 @@ namespace musicplayer
 			{
 				song.Data = new SongDAO().GetSongData((int)song.DataID);
 			}
-			_songHistory.Enqueue(song);
+			_songHistory.AddFirst(song);
 
 			PlayerControl.GetPlayerControl().SongName = song.Name;
 			if (song.Album?.Artist != null) PlayerControl.GetPlayerControl().ArtistName = song.Album.Artist.Name;
@@ -64,12 +64,12 @@ namespace musicplayer
 
 		public void AddToQueue(Song song)
 		{
-			_songQueue.Enqueue(song);
+			_songQueue.AddLast(song);
 		}
 
 		public void AddToHistory(Song song)
 		{
-			_songHistory.Enqueue(song);
+			_songHistory.AddLast(song);
 		}
 
 		public void ClearQueue()
@@ -98,10 +98,33 @@ namespace musicplayer
 
 			_outputDevice.Play();
 
+			PlayerControl.GetPlayerControl().PlayButtonText = "Stop";
 			PlayerControl.GetPlayerControl().Enable();
 		}
 
-		public void Stop()
+		public bool TogglePause()
+		{
+			if (_outputDevice == null) return false;
+			if (_outputDevice.PlaybackState == PlaybackState.Stopped)
+			{
+				Continue();
+				return true;
+			}
+			else
+			{
+				Stop();
+				return false;
+			}
+		}
+
+		private void Continue()
+		{
+			if (_outputDevice == null || _fileReader == null || _stream == null) return;
+
+			_outputDevice.Play();
+		}
+
+		private void Stop()
 		{
 			_outputDevice?.Stop();
 		}
@@ -118,15 +141,21 @@ namespace musicplayer
 			Stop();
 			if (Progress > 0.1)
 			{
-				PlaySong(_songHistory.Dequeue());
+				Song song = _songHistory.First();
+				_songHistory.RemoveFirst();
+				PlaySong(song);
 			}
 			else
 			{
 				if (_songHistory.Count < 2) Clear();
 				else
 				{
-					_songQueue.Enqueue(_songHistory.Dequeue());
-					PlaySong(_songHistory.Dequeue());
+					Song currentSong = _songHistory.First();
+					_songHistory.RemoveFirst();
+					_songQueue.AddFirst(currentSong);
+					Song newSong = _songHistory.First();
+					_songHistory.RemoveFirst();
+					PlaySong(newSong);
 				}
 			}
 		}
@@ -138,7 +167,7 @@ namespace musicplayer
 			_stream?.Close();
 		}
 
-		private void Clear()
+		public void Clear()
 		{
 			Dispose();
 			_songQueue?.Clear();
@@ -184,9 +213,9 @@ namespace musicplayer
 		private void PlayNextSong()
 		{
 			Dispose();
-			Song? song;
+			/*Song? song;
 			bool calledBreak = false;
-			while (_songQueue.TryDequeue(out song))
+			while (_songQueue.Count)
 			{
 				if (song != null && PlaySong(song, true))
 				{
@@ -195,6 +224,17 @@ namespace musicplayer
 				}
 			}
 			if (!calledBreak)
+			{
+				Clear();
+			}*/
+
+			if (_songQueue.Count >= 1)
+			{
+				Song song = _songQueue.First();
+				_songQueue.Remove(song);
+				PlaySong(song);
+			}
+			else
 			{
 				Clear();
 			}

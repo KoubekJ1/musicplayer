@@ -60,6 +60,7 @@
 			bPlayPause.TabIndex = 1;
 			bPlayPause.Text = "Play";
 			bPlayPause.UseVisualStyleBackColor = true;
+			bPlayPause.Click += bPlayPause_Click;
 			// 
 			// bNext
 			// 
