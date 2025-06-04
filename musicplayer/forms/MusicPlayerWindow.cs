@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using musicplayer.controls;
+using musicplayer.dao;
 using musicplayer.forms;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace musicplayer
 
 		private void buttonArtists_Click(object sender, EventArgs e)
 		{
+			panelContent.Controls.Clear();
 			ArtistsControl artistsControl = new ArtistsControl();
 			artistsControl.Dock = DockStyle.Fill;
 			panelContent.Controls.Add(artistsControl);
@@ -66,12 +68,32 @@ namespace musicplayer
 		private void bAlbums_Click(object sender, EventArgs e)
 		{
 			panelContent.Controls.Clear();
-			//AlbumsListControl displayControl = new AlbumsListControl();
+			try
+			{
+				AlbumsListControl displayControl = new AlbumsListControl(new AlbumDAO().GetAll(), panelContent);
+				displayControl.Dock = DockStyle.Fill;
+				panelContent.Controls.Add(displayControl);
+			}
+			catch (Exception ex)
+			{
+				ErrorHandler.HandleException(ex, "Unable to load albums.", "Error");
+			}
 		}
 
 		private void bSongs_Click(object sender, EventArgs e)
 		{
-
+			panelContent.Controls.Clear();
+			try
+			{
+				var songs = new SongDAO().GetAll();
+				var songControl = new SongOverviewControl(songs);
+				songControl.Dock = DockStyle.Fill;
+				panelContent.Controls.Add(songControl);
+			}
+			catch (Exception ex)
+			{
+				ErrorHandler.HandleException(ex, "Error", "Could not load songs.");
+			}
 		}
 	}
 }

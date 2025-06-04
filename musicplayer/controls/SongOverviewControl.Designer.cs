@@ -1,6 +1,6 @@
-﻿namespace musicplayer
+﻿namespace musicplayer.controls
 {
-	partial class AlbumsListControl
+	partial class SongOverviewControl
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -28,19 +28,10 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			flpAlbs = new FlowLayoutPanel();
 			lSearch = new Label();
 			tbSearch = new TextBox();
+			flpSongs = new FlowLayoutPanel();
 			SuspendLayout();
-			// 
-			// flpAlbs
-			// 
-			flpAlbs.AutoScroll = true;
-			flpAlbs.Dock = DockStyle.Bottom;
-			flpAlbs.Location = new Point(0, 56);
-			flpAlbs.Name = "flpAlbs";
-			flpAlbs.Size = new Size(830, 594);
-			flpAlbs.TabIndex = 0;
 			// 
 			// lSearch
 			// 
@@ -48,7 +39,7 @@
 			lSearch.Location = new Point(3, 0);
 			lSearch.Name = "lSearch";
 			lSearch.Size = new Size(53, 20);
-			lSearch.TabIndex = 1;
+			lSearch.TabIndex = 0;
 			lSearch.Text = "Search";
 			// 
 			// tbSearch
@@ -56,26 +47,33 @@
 			tbSearch.Location = new Point(3, 23);
 			tbSearch.Name = "tbSearch";
 			tbSearch.Size = new Size(500, 27);
-			tbSearch.TabIndex = 2;
+			tbSearch.TabIndex = 1;
 			tbSearch.TextChanged += tbSearch_TextChanged;
 			// 
-			// AlbumsListControl
+			// flpSongs
+			// 
+			flpSongs.Location = new Point(3, 56);
+			flpSongs.Name = "flpSongs";
+			flpSongs.Size = new Size(1135, 598);
+			flpSongs.TabIndex = 2;
+			// 
+			// SongOverviewControl
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(flpSongs);
 			Controls.Add(tbSearch);
 			Controls.Add(lSearch);
-			Controls.Add(flpAlbs);
-			Name = "AlbumsListControl";
-			Size = new Size(830, 650);
+			Name = "SongOverviewControl";
+			Size = new Size(1141, 657);
 			ResumeLayout(false);
 			PerformLayout();
 		}
 
 		#endregion
 
-		private FlowLayoutPanel flpAlbs;
 		private Label lSearch;
 		private TextBox tbSearch;
+		private FlowLayoutPanel flpSongs;
 	}
 }

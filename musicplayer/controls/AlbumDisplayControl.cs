@@ -34,7 +34,11 @@ namespace musicplayer
 		private void button_Click(object sender, EventArgs e)
 		{
 			_artistDisplayControl.Controls.Clear();
-			_artistDisplayControl.Controls.Add(new AlbumSongListControl(_album));
+
+			AlbumSongListControl control = new AlbumSongListControl(_album);
+			control.Dock = DockStyle.Fill;
+
+			_artistDisplayControl.Controls.Add(control);
 		}
 	}
 }

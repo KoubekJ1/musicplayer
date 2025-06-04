@@ -13,12 +13,13 @@ namespace musicplayer.dao
         public IEnumerable<Album> GetAll()
         {
             LinkedList<Album> albums = new LinkedList<Album>();
-            LinkedList<int> imgIDs = new LinkedList<int>();
+            LinkedList<int?> imgIDs = new LinkedList<int?>();
+            LinkedList<int?> artistIDs = new LinkedList<int?>();
 
-            SqlConnection connection = DatabaseConnection.GetConnection();
+			SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
 
-            SqlCommand command = new SqlCommand("SELECT alb_id, alb_name, alb_img_id FROM albums", connection);
+            SqlCommand command = new SqlCommand("SELECT alb_id, alb_name, alb_img_id, alb_ar_id FROM albums", connection);
 
             SqlDataReader reader = command.ExecuteReader();
 
@@ -27,16 +28,30 @@ namespace musicplayer.dao
             {
                 album = new Album(reader.GetString(1));
                 album.Id = reader.GetInt32(0);
-                int? imgID = reader.GetInt32(3);
+                int? imgID = reader.GetInt32(2);
+                imgIDs.AddLast(imgID);
+                artistIDs.AddLast(reader.GetInt32(3));
+                albums.AddLast(album);
             }
 
             connection.Close();
 
+            var iconImageDAO = new IconImageDAO();
             var albumEnumerator = albums.GetEnumerator();
-            foreach (int imgID in imgIDs)
+            foreach (int? imgID in imgIDs)
             {
                 if (!albumEnumerator.MoveNext()) break;
-                albumEnumerator.Current.Image = new IconImageDAO().GetByID(imgID);
+                if (imgID == null) continue;
+                albumEnumerator.Current.Image = iconImageDAO.GetByID((int)imgID);
+            }
+
+			var arstistDAO = new ArtistDAO();
+			albumEnumerator = albums.GetEnumerator();
+            foreach (int? artistID in artistIDs)
+            {
+                if (!albumEnumerator.MoveNext()) break;
+                if (artistID == null) continue;
+                albumEnumerator.Current.Artist = arstistDAO.GetByID((int)artistID);
             }
 
             return albums;
@@ -71,7 +86,13 @@ namespace musicplayer.dao
             List<Album> albums = new List<Album>();
             LinkedList<int?> imageIDs = new LinkedList<int?>();
 
-            SqlConnection connection = DatabaseConnection.GetConnection();
+            ArtistDAO artistDAO = new ArtistDAO();
+			Artist? artist = artistDAO.GetByID(artistID);
+
+			SqlConnection connection = DatabaseConnection.GetConnection();
+
+            
+
             connection.Open();
 
             SqlCommand command = new SqlCommand("SELECT alb_id, alb_img_id, alb_name FROM albums WHERE alb_ar_id = @artist_id", connection);
@@ -85,6 +106,7 @@ namespace musicplayer.dao
                 album = new Album(reader.GetString(2));
                 album.Id = reader.GetInt32(0);
                 imageIDs.AddLast(reader[1] == DBNull.Value ? null : reader.GetInt32(1));
+                album.Artist = artist;
                 albums.Add(album);
             }
 

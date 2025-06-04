@@ -55,7 +55,10 @@ namespace musicplayer
 			Artist? artist = artistButtons[button];
 			if (artist == null) return;
 			pArtistContent.Controls.Clear();
-			pArtistContent.Controls.Add(new AlbumsListControl(artist, pArtistContent));
+
+			artist.LoadAlbums();
+			
+			pArtistContent.Controls.Add(new AlbumsListControl(artist.Albums, pArtistContent));
 		}
 	}
 }
