@@ -21,6 +21,10 @@ namespace musicplayer.controls
 			InitializeComponent();
 			_album = album;
 
+			lAlbumName.Text = album.Name;
+			lArtistName.Text = album.Artist != null ? album.Artist.Name : "Unknown artist";
+			pbAlbumImage.Image = album.Image != null ? IconImage.ResizeImage(album.Image.Image, pbAlbumImage.Width, pbAlbumImage.Height) : null;
+
 			if (album.Songs.Count <= 0 && album.Id != null)
 			{
 				album.Songs = new SongDAO().GetSongsFromAlbum((int)album.Id);

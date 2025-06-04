@@ -36,7 +36,7 @@
 			// 
 			button.Location = new Point(3, 3);
 			button.Name = "button";
-			button.Size = new Size(194, 200);
+			button.Size = new Size(184, 184);
 			button.TabIndex = 0;
 			button.UseVisualStyleBackColor = true;
 			button.Click += button_Click;
@@ -44,10 +44,11 @@
 			// label
 			// 
 			label.AutoSize = true;
-			label.Location = new Point(3, 206);
-			label.MinimumSize = new Size(194, 43);
+			label.Location = new Point(3, 190);
+			label.MaximumSize = new Size(184, 43);
+			label.MinimumSize = new Size(184, 43);
 			label.Name = "label";
-			label.Size = new Size(194, 43);
+			label.Size = new Size(184, 43);
 			label.TabIndex = 1;
 			label.Text = "Artist Name";
 			label.TextAlign = ContentAlignment.MiddleCenter;
@@ -60,7 +61,7 @@
 			Controls.Add(label);
 			Controls.Add(button);
 			Name = "AlbumDisplayControl";
-			Size = new Size(200, 250);
+			Size = new Size(190, 237);
 			ResumeLayout(false);
 			PerformLayout();
 		}

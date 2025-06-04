@@ -41,12 +41,12 @@
 			flpArtists.Size = new Size(300, 711);
 			flpArtists.TabIndex = 0;
 			// 
-			// panelArtistContent
+			// pArtistContent
 			// 
 			pArtistContent.Dock = DockStyle.Right;
 			pArtistContent.Location = new Point(306, 0);
-			pArtistContent.Name = "panelArtistContent";
-			pArtistContent.Size = new Size(783, 711);
+			pArtistContent.Name = "pArtistContent";
+			pArtistContent.Size = new Size(835, 711);
 			pArtistContent.TabIndex = 1;
 			// 
 			// ArtistsControl
@@ -56,7 +56,7 @@
 			Controls.Add(pArtistContent);
 			Controls.Add(flpArtists);
 			Name = "ArtistsControl";
-			Size = new Size(1089, 711);
+			Size = new Size(1141, 711);
 			ResumeLayout(false);
 		}
 

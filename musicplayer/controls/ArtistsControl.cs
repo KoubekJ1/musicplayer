@@ -25,7 +25,7 @@ namespace musicplayer
 			{
 				Button button = new Button();
 				button.Text = artist.Name;
-				button.Width = 200;
+				button.Width = 250;
 				button.Height = 100;
 				button.AutoSize = true;
 				button.AutoSizeMode = AutoSizeMode.GrowOnly;

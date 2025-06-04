@@ -22,7 +22,7 @@ namespace musicplayer
 			InitializeComponent();
 			_album = album;
 			label.Text = album.Name;
-			button.Image = album.Image?.Image;
+			button.Image = album.Image != null ? IconImage.ResizeImage(album.Image.Image, button.Width, button.Height) : null;
 			_artistDisplayControl = artistDisplayControl;
 		}
 

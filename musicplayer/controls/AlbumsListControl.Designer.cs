@@ -33,10 +33,11 @@
 			// 
 			// flpAlbs
 			// 
+			flpAlbs.AutoScroll = true;
 			flpAlbs.Dock = DockStyle.Fill;
 			flpAlbs.Location = new Point(0, 0);
 			flpAlbs.Name = "flpAlbs";
-			flpAlbs.Size = new Size(1398, 1057);
+			flpAlbs.Size = new Size(830, 650);
 			flpAlbs.TabIndex = 0;
 			// 
 			// AlbumsListControl
@@ -45,7 +46,7 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			Controls.Add(flpAlbs);
 			Name = "AlbumsListControl";
-			Size = new Size(1398, 1057);
+			Size = new Size(830, 650);
 			ResumeLayout(false);
 		}
 

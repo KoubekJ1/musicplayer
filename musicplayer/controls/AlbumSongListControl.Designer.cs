@@ -29,29 +29,71 @@
 		private void InitializeComponent()
 		{
 			flpSongs = new FlowLayoutPanel();
+			pbAlbumImage = new PictureBox();
+			lAlbumName = new Label();
+			lArtistName = new Label();
+			((System.ComponentModel.ISupportInitialize)pbAlbumImage).BeginInit();
 			SuspendLayout();
 			// 
 			// flpSongs
 			// 
-			flpSongs.Dock = DockStyle.Fill;
+			flpSongs.AutoScroll = true;
+			flpSongs.Dock = DockStyle.Bottom;
 			flpSongs.FlowDirection = FlowDirection.TopDown;
-			flpSongs.Location = new Point(0, 0);
+			flpSongs.Location = new Point(0, 209);
 			flpSongs.Name = "flpSongs";
-			flpSongs.Size = new Size(1472, 1129);
+			flpSongs.Size = new Size(840, 441);
 			flpSongs.TabIndex = 0;
+			flpSongs.WrapContents = false;
+			// 
+			// pbAlbumImage
+			// 
+			pbAlbumImage.Location = new Point(3, 3);
+			pbAlbumImage.Name = "pbAlbumImage";
+			pbAlbumImage.Size = new Size(200, 200);
+			pbAlbumImage.TabIndex = 1;
+			pbAlbumImage.TabStop = false;
+			// 
+			// lAlbumName
+			// 
+			lAlbumName.AutoSize = true;
+			lAlbumName.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 238);
+			lAlbumName.Location = new Point(209, 3);
+			lAlbumName.Name = "lAlbumName";
+			lAlbumName.Size = new Size(210, 46);
+			lAlbumName.TabIndex = 2;
+			lAlbumName.Text = "Album name";
+			// 
+			// lArtistName
+			// 
+			lArtistName.AutoSize = true;
+			lArtistName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 238);
+			lArtistName.Location = new Point(209, 49);
+			lArtistName.Name = "lArtistName";
+			lArtistName.Size = new Size(132, 31);
+			lArtistName.TabIndex = 3;
+			lArtistName.Text = "Artist name";
 			// 
 			// AlbumSongListControl
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(lArtistName);
+			Controls.Add(lAlbumName);
+			Controls.Add(pbAlbumImage);
 			Controls.Add(flpSongs);
 			Name = "AlbumSongListControl";
-			Size = new Size(1472, 1129);
+			Size = new Size(840, 650);
+			((System.ComponentModel.ISupportInitialize)pbAlbumImage).EndInit();
 			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion
 
 		private FlowLayoutPanel flpSongs;
+		private PictureBox pbAlbumImage;
+		private Label lAlbumName;
+		private Label lArtistName;
 	}
 }

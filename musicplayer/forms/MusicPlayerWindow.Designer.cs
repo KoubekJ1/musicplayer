@@ -140,6 +140,7 @@
 			bSongs.TabIndex = 2;
 			bSongs.Text = "Songs";
 			bSongs.UseVisualStyleBackColor = true;
+			bSongs.Click += bSongs_Click;
 			// 
 			// bAlbums
 			// 
@@ -150,6 +151,7 @@
 			bAlbums.TabIndex = 1;
 			bAlbums.Text = "Albums";
 			bAlbums.UseVisualStyleBackColor = true;
+			bAlbums.Click += bAlbums_Click;
 			// 
 			// bArtists
 			// 

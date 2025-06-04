@@ -19,6 +19,7 @@ namespace musicplayer
 		public MusicPlayerWindow()
 		{
 			InitializeComponent();
+			this.FormBorderStyle = FormBorderStyle.FixedSingle;
 			PlayerControl control = PlayerControl.GetPlayerControl();
 			control.Dock = DockStyle.Top;
 			this.Controls.Add(control);
@@ -58,6 +59,17 @@ namespace musicplayer
 		}
 
 		private void MusicPlayerWindow_Load(object sender, EventArgs e)
+		{
+
+		}
+
+		private void bAlbums_Click(object sender, EventArgs e)
+		{
+			panelContent.Controls.Clear();
+			//AlbumsListControl displayControl = new AlbumsListControl();
+		}
+
+		private void bSongs_Click(object sender, EventArgs e)
 		{
 
 		}
