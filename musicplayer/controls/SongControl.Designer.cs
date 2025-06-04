@@ -58,7 +58,7 @@
 			// 
 			lLength.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
 			lLength.AutoSize = true;
-			lLength.Location = new Point(773, 20);
+			lLength.Location = new Point(743, 20);
 			lLength.Name = "lLength";
 			lLength.Size = new Size(54, 20);
 			lLength.TabIndex = 2;
@@ -74,7 +74,7 @@
 			Controls.Add(lSongName);
 			Controls.Add(bPlay);
 			Name = "SongControl";
-			Size = new Size(830, 60);
+			Size = new Size(800, 60);
 			ResumeLayout(false);
 			PerformLayout();
 		}
