@@ -60,6 +60,7 @@ namespace musicplayer
 			{
 				new ArtistDAO().Upload(_artist);
 				MessageBox.Show("Artist " + _artist.Name + " added successfully", _artist.Name);
+				this.Close();
 			}
 			catch (Exception ex)
 			{

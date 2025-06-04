@@ -120,7 +120,7 @@ namespace musicplayer.dao
             SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
 
-            SqlCommand command = new SqlCommand("UPDATE artist SET ar_name = @name, ar_img_id = @img_id WHERE ar_id = @id", connection);
+            SqlCommand command = new SqlCommand("UPDATE artists SET ar_name = @name, ar_img_id = @img_id WHERE ar_id = @id", connection);
             command.Parameters.AddWithValue("id", artist.Id);
             command.Parameters.AddWithValue("name", artist.Name);
             command.Parameters.AddWithValue("img_id", artist.Image?.Id != null ? artist.Image.Id : DBNull.Value);

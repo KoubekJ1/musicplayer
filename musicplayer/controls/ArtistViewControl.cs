@@ -1,4 +1,5 @@
-﻿using musicplayer.dataobjects;
+﻿using musicplayer.dao;
+using musicplayer.dataobjects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,7 +42,24 @@ namespace musicplayer.controls
 
 		private void bDelete_Click(object sender, EventArgs e)
 		{
-			
+			if (MessageBox.Show("Are you sure you wish to delete \"" + _artist.Name + "\" from the database?", "Delete", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+			if (_artist.Id == null)
+			{
+				MessageBox.Show("Artist has not been uploaded to the database", "Error");
+				return;
+			}
+
+			ArtistDAO dao = new ArtistDAO();
+			try
+			{
+				dao.Remove((int)_artist.Id);
+				MessageBox.Show("Artist \"" + _artist.Name + "\" successfully deleted.", "Delete");
+				_artistsControl.Controls.Clear();
+			}
+			catch (Exception ex)
+			{
+				ErrorHandler.HandleException(ex, "Error", "Unable to delete artist from the database.");
+			}
 		}
 	}
 }
