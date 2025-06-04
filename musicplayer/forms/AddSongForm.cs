@@ -13,6 +13,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace musicplayer.forms
 {
+	/// <summary>
+	/// Form used for creating or updating song instances
+	/// </summary>
 	public partial class AddSongForm : Form
 	{
 		private Album? _album;
@@ -21,6 +24,9 @@ namespace musicplayer.forms
 
 		public Song Song { get => _song; }
 
+		/// <summary>
+		/// Constructs a new add song form
+		/// </summary>
 		public AddSongForm()
 		{
 			InitializeComponent();
@@ -28,6 +34,10 @@ namespace musicplayer.forms
 			_song = new Song("");
 		}
 
+		/// <summary>
+		/// Constructs a new add song form with the given song to edit
+		/// </summary>
+		/// <param name="song">Song</param>
 		public AddSongForm(Song song)
 		{
 			InitializeComponent();
@@ -46,6 +56,11 @@ namespace musicplayer.forms
 
 		}
 
+		/// <summary>
+		/// Opens the file chooser dialog for the user to choose a file containing the song data
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bFile_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog dialog = new OpenFileDialog();
@@ -64,6 +79,11 @@ namespace musicplayer.forms
 			}
 		}
 
+		/// <summary>
+		/// Adds the song to the database
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bAdd_Click(object sender, EventArgs e)
 		{
 			SongDAO dao = new SongDAO();
@@ -104,13 +124,11 @@ namespace musicplayer.forms
 			}
 		}
 
-		private void bSelectAlbum_Click(object sender, EventArgs e)
-		{
-			AlbumPicker picker = new AlbumPicker();
-			picker.ShowDialog();
-			_album = picker.Album;
-		}
-
+		/// <summary>
+		/// Sets the song's name to the textbox value
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void tbName_TextChanged(object sender, EventArgs e)
 		{
 			_song.Name = tbName.Text;

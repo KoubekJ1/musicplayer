@@ -12,12 +12,18 @@ using System.Windows.Forms;
 
 namespace musicplayer
 {
+	/// <summary>
+	/// Form used for creating or updating an artist
+	/// </summary>
 	public partial class AddArtistForm : Form
 	{
 		private Artist _artist;
 
 		public Artist Artist { get => _artist; }
 
+		/// <summary>
+		/// Constructs a new AddArtistForm
+		/// </summary>
 		public AddArtistForm()
 		{
 			InitializeComponent();
@@ -26,6 +32,10 @@ namespace musicplayer
 			_artist = new Artist("");
 		}
 
+		/// <summary>
+		/// Constructs a new AddArtistForm with the given artist to edit
+		/// </summary>
+		/// <param name="artist">Artist</param>
 		public AddArtistForm(Artist artist)
 		{
 			InitializeComponent();
@@ -36,6 +46,11 @@ namespace musicplayer
 			if (_artist.Image != null) pbImage.Image = IconImage.ResizeImage(_artist.Image.Image, pbImage.Width, pbImage.Height);
 		}
 
+		/// <summary>
+		/// Changes the artist's image
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bChangeImage_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog dialog = new OpenFileDialog();
@@ -54,6 +69,11 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// Adds the artist to the database
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bAdd_Click(object sender, EventArgs e)
 		{
 			try
@@ -68,6 +88,11 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// Sets the artist's name to the textbox value
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void tbName_TextChanged(object sender, EventArgs e)
 		{
 			_artist.Name = tbName.Text;

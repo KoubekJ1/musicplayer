@@ -12,6 +12,9 @@ using System.Windows.Forms;
 
 namespace musicplayer.forms
 {
+	/// <summary>
+	/// Form used for picking an album
+	/// </summary>
 	public partial class AlbumPicker : Form
 	{
 		private IEnumerable<Album> _originalAlbumsQuery;
@@ -19,6 +22,9 @@ namespace musicplayer.forms
 
 		public Album? Album { get => _album; }
 
+		/// <summary>
+		/// Constructs a new AlbumPicker instance
+		/// </summary>
 		public AlbumPicker()
 		{
 			InitializeComponent();
@@ -32,6 +38,11 @@ namespace musicplayer.forms
 			}
 		}
 
+		/// <summary>
+		/// Filters the albums based on the given name
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void tbSearch_TextChanged(object sender, EventArgs e)
 		{
 			// Ordinary contains doesnt work due to case sensitivity
@@ -43,6 +54,11 @@ namespace musicplayer.forms
 			}
 		}
 
+		/// <summary>
+		/// Selects the album
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bSelect_Click(object sender, EventArgs e)
 		{
 			_album = lbAlbums.SelectedItem as Album;
