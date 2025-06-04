@@ -1,3 +1,0 @@
-yt-dlp.exe -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" "URL" -f 'ba' -x --audio-format mp3
-
-yt-dlp.exe -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" "URL" -f 'bv*[height=1080]+ba'
