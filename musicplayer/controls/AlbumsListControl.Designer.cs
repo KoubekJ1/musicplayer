@@ -31,15 +31,17 @@
 			flpAlbs = new FlowLayoutPanel();
 			lSearch = new Label();
 			tbSearch = new TextBox();
+			panel1 = new Panel();
+			panel1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// flpAlbs
 			// 
+			flpAlbs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
 			flpAlbs.AutoScroll = true;
-			flpAlbs.Dock = DockStyle.Bottom;
 			flpAlbs.Location = new Point(0, 56);
 			flpAlbs.Name = "flpAlbs";
-			flpAlbs.Size = new Size(830, 594);
+			flpAlbs.Size = new Size(830, 382);
 			flpAlbs.TabIndex = 0;
 			// 
 			// lSearch
@@ -59,17 +61,27 @@
 			tbSearch.TabIndex = 2;
 			tbSearch.TextChanged += tbSearch_TextChanged;
 			// 
+			// panel1
+			// 
+			panel1.Controls.Add(tbSearch);
+			panel1.Controls.Add(lSearch);
+			panel1.Dock = DockStyle.Top;
+			panel1.Location = new Point(0, 0);
+			panel1.Name = "panel1";
+			panel1.Size = new Size(830, 50);
+			panel1.TabIndex = 0;
+			// 
 			// AlbumsListControl
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
-			Controls.Add(tbSearch);
-			Controls.Add(lSearch);
+			Controls.Add(panel1);
 			Controls.Add(flpAlbs);
 			Name = "AlbumsListControl";
-			Size = new Size(830, 650);
+			Size = new Size(830, 438);
+			panel1.ResumeLayout(false);
+			panel1.PerformLayout();
 			ResumeLayout(false);
-			PerformLayout();
 		}
 
 		#endregion
@@ -77,5 +89,6 @@
 		private FlowLayoutPanel flpAlbs;
 		private Label lSearch;
 		private TextBox tbSearch;
+		private Panel panel1;
 	}
 }

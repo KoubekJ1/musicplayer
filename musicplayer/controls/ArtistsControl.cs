@@ -1,4 +1,5 @@
-﻿using musicplayer.dao;
+﻿using musicplayer.controls;
+using musicplayer.dao;
 using musicplayer.dataobjects;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace musicplayer
 {
 	public partial class ArtistsControl : UserControl
 	{
-		private Dictionary<Button, Artist> artistButtons = new Dictionary<Button, Artist>();
-		public ArtistsControl()
+		private Dictionary<Button, Artist> _artistButtons = new Dictionary<Button, Artist>();
+		private Control _parentPanel;
+		public ArtistsControl(Control parentPanel)
 		{
 			InitializeComponent();
-			artistButtons = new Dictionary<Button, Artist>();
+			_artistButtons = new Dictionary<Button, Artist>();
+			_parentPanel = parentPanel;
 
 			var artists = new ArtistDAO().GetAll();
 			foreach (Artist artist in artists.OrderBy(artist => artist.Name))
@@ -42,9 +45,8 @@ namespace musicplayer
 				pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
 				button.Controls.Add(pictureBox);
 
-				artistButtons.Add(button, artist);
+				_artistButtons.Add(button, artist);
 				button.Click += ButtonClicked;
-
 			}
 		}
 
@@ -52,13 +54,14 @@ namespace musicplayer
 		{
 			Button? button = sender as Button;
 			if (button == null) return;
-			Artist? artist = artistButtons[button];
+			Artist? artist = _artistButtons[button];
 			if (artist == null) return;
 			pArtistContent.Controls.Clear();
 
 			artist.LoadAlbums();
 			
-			pArtistContent.Controls.Add(new AlbumsListControl(artist.Albums, pArtistContent));
+			//pArtistContent.Controls.Add(new AlbumsListControl(artist.Albums, pArtistContent));
+			pArtistContent.Controls.Add(new ArtistViewControl(artist, _parentPanel, pArtistContent));
 		}
 	}
 }

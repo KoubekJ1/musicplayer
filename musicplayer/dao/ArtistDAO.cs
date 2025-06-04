@@ -69,15 +69,27 @@ namespace musicplayer.dao
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            SqlConnection connection = DatabaseConnection.GetConnection();
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("DELETE FROM artists WHERE ar_id = @id", connection);
+            command.Parameters.AddWithValue("id", id);
+            command.ExecuteNonQuery();
+
+            connection.Close();
         }
 
         public int? Upload(Artist artist)
         {
-            int? imgID;
+            if (artist.Id != null)
+            {
+                Update(artist);
+                return artist.Id;
+            }
+
             if (artist.Image != null)
             {
-                new IconImageDAO().Upload(artist.Image);
+                artist.Image.Id = new IconImageDAO().Upload(artist.Image);
             }
 
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -94,6 +106,28 @@ namespace musicplayer.dao
             artist.Id = id;
 
             return id;
+        }
+
+        public void Update(Artist artist)
+        {
+            if (artist.Id == null) return;
+
+            if (artist.Image?.Id == null)
+            {
+                artist.Image.Id = new IconImageDAO().Upload(artist.Image);
+            }
+
+            SqlConnection connection = DatabaseConnection.GetConnection();
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("UPDATE artist SET ar_name = @name, ar_img_id = @img_id WHERE ar_id = @id", connection);
+            command.Parameters.AddWithValue("id", artist.Id);
+            command.Parameters.AddWithValue("name", artist.Name);
+            command.Parameters.AddWithValue("img_id", artist.Image?.Id != null ? artist.Image.Id : DBNull.Value);
+
+            command.ExecuteNonQuery();
+
+			connection.Close();
         }
     }
 }

@@ -49,9 +49,6 @@ namespace musicplayer.dataobjects
 
         public static Bitmap ResizeImage(Image image, int width, int height)
         {
-            // Code from Stack Overflow
-            // Source: https://stackoverflow.com/questions/1922040/how-to-resize-an-image-c-sharp
-
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
 

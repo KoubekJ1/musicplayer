@@ -34,6 +34,9 @@ namespace musicplayer.forms
 			this.FormBorderStyle = FormBorderStyle.FixedSingle;
 			_song = song;
 
+			this.Text = "Edit Song";
+			this.bAdd.Text = "Save";
+
 			tbName.Text = song.Name;
 			lFile.Text = "Original song data";
 		}

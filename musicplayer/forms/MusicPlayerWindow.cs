@@ -45,7 +45,7 @@ namespace musicplayer
 		private void buttonArtists_Click(object sender, EventArgs e)
 		{
 			panelContent.Controls.Clear();
-			ArtistsControl artistsControl = new ArtistsControl();
+			ArtistsControl artistsControl = new ArtistsControl(panelContent);
 			artistsControl.Dock = DockStyle.Fill;
 			panelContent.Controls.Add(artistsControl);
 		}

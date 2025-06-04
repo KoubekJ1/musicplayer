@@ -30,8 +30,6 @@
 		{
 			panelContent = new Panel();
 			menuStrip1 = new MenuStrip();
-			fileToolStripMenuItem = new ToolStripMenuItem();
-			editToolStripMenuItem = new ToolStripMenuItem();
 			addToolStripMenuItem = new ToolStripMenuItem();
 			artistToolStripMenuItem = new ToolStripMenuItem();
 			albumToolStripMenuItem = new ToolStripMenuItem();
@@ -58,25 +56,13 @@
 			// menuStrip1
 			// 
 			menuStrip1.ImageScalingSize = new Size(32, 32);
-			menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, addToolStripMenuItem, helpToolStripMenuItem });
+			menuStrip1.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem, helpToolStripMenuItem });
 			menuStrip1.Location = new Point(0, 0);
 			menuStrip1.Name = "menuStrip1";
 			menuStrip1.Padding = new Padding(4, 2, 0, 2);
 			menuStrip1.Size = new Size(1362, 28);
 			menuStrip1.TabIndex = 3;
 			menuStrip1.Text = "menuStrip1";
-			// 
-			// fileToolStripMenuItem
-			// 
-			fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-			fileToolStripMenuItem.Size = new Size(46, 24);
-			fileToolStripMenuItem.Text = "File";
-			// 
-			// editToolStripMenuItem
-			// 
-			editToolStripMenuItem.Name = "editToolStripMenuItem";
-			editToolStripMenuItem.Size = new Size(49, 24);
-			editToolStripMenuItem.Text = "Edit";
 			// 
 			// addToolStripMenuItem
 			// 
@@ -174,6 +160,7 @@
 			Controls.Add(menuStrip1);
 			MainMenuStrip = menuStrip1;
 			Margin = new Padding(2, 4, 2, 4);
+			MaximizeBox = false;
 			Name = "MusicPlayerWindow";
 			Text = "Music Player";
 			Load += MusicPlayerWindow_Load;
@@ -188,8 +175,6 @@
 		#endregion
 		private System.Windows.Forms.Panel panelContent;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Panel panelMenu;

@@ -21,7 +21,7 @@ namespace musicplayer
 			InitializeComponent();
 			_albums = albums;
 			_artistContentControl = artistContentControl;
-			SetAlbums(albums, artistContentControl);
+			SetAlbums(albums, artistContentControl);			
 		}
 
 		public void SetAlbums(IEnumerable<Album> albums, Control artistContentControl)

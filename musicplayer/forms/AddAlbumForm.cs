@@ -156,6 +156,8 @@ namespace musicplayer
 
 			lbSongs.Items[swapIndex] = selectedSong;
 			lbSongs.Items[selectedIndex] = swapSong;
+
+			lbSongs.SelectedIndex = swapIndex;
 		}
 
 		private void bDown_Click(object sender, EventArgs e)
@@ -168,6 +170,8 @@ namespace musicplayer
 
 			lbSongs.Items[swapIndex] = selectedSong;
 			lbSongs.Items[selectedIndex] = swapSong;
+
+			lbSongs.SelectedIndex = swapIndex;
 		}
 
 		private void tbName_TextChanged(object sender, EventArgs e)

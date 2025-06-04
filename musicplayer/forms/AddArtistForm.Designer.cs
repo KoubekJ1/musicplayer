@@ -54,6 +54,7 @@
 			tbName.Name = "tbName";
 			tbName.Size = new Size(248, 27);
 			tbName.TabIndex = 1;
+			tbName.TextChanged += tbName_TextChanged;
 			// 
 			// pbImage
 			// 
@@ -62,14 +63,14 @@
 			pbImage.Location = new Point(7, 62);
 			pbImage.Margin = new Padding(2);
 			pbImage.Name = "pbImage";
-			pbImage.Size = new Size(158, 160);
+			pbImage.Size = new Size(160, 160);
 			pbImage.SizeMode = PictureBoxSizeMode.StretchImage;
 			pbImage.TabIndex = 2;
 			pbImage.TabStop = false;
 			// 
 			// bChangeImage
 			// 
-			bChangeImage.Location = new Point(7, 254);
+			bChangeImage.Location = new Point(7, 226);
 			bChangeImage.Margin = new Padding(2);
 			bChangeImage.Name = "bChangeImage";
 			bChangeImage.Size = new Size(92, 29);
@@ -80,7 +81,7 @@
 			// 
 			// bAdd
 			// 
-			bAdd.Location = new Point(7, 299);
+			bAdd.Location = new Point(7, 274);
 			bAdd.Margin = new Padding(2);
 			bAdd.Name = "bAdd";
 			bAdd.Size = new Size(92, 29);
@@ -93,7 +94,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(261, 335);
+			ClientSize = new Size(261, 310);
 			Controls.Add(bAdd);
 			Controls.Add(bChangeImage);
 			Controls.Add(pbImage);
@@ -101,7 +102,7 @@
 			Controls.Add(labelName);
 			Margin = new Padding(2);
 			Name = "AddArtistForm";
-			Text = "AddArtistForm";
+			Text = "Add Artist";
 			((System.ComponentModel.ISupportInitialize)pbImage).EndInit();
 			ResumeLayout(false);
 			PerformLayout();

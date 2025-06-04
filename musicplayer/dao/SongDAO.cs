@@ -96,10 +96,17 @@ namespace musicplayer.dao
             SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
 
-            SqlCommand command = new SqlCommand("DELETE FROM songs WHERE so_id = @id", connection);
+
+			SqlCommand command1 = new SqlCommand("DELETE FROM song_data WHERE sd_id IN (SELECT so_sd_id FROM songs WHERE so_id = @id)", connection);
+			command1.Parameters.AddWithValue("id", id);
+			command1.ExecuteNonQuery();
+
+            // Should not be necessary due to reference integrity (ON DELETE CASCADE)
+			/*SqlCommand command = new SqlCommand("DELETE FROM songs WHERE so_id = @id", connection);
             command.Parameters.AddWithValue("id", id);
 
-            command.ExecuteNonQuery();
+			command.ExecuteNonQuery();*/
+
 
             connection.Close();
         }
