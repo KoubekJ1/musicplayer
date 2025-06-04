@@ -86,7 +86,7 @@ namespace musicplayer
 			try
 			{
 				var songs = new SongDAO().GetAll();
-				var songControl = new SongOverviewControl(songs);
+				var songControl = new SongOverviewControl(songs, panelContent);
 				songControl.Dock = DockStyle.Fill;
 				panelContent.Controls.Add(songControl);
 			}

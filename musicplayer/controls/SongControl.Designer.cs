@@ -31,6 +31,8 @@
 			bPlay = new Button();
 			lSongName = new Label();
 			lLength = new Label();
+			bDelete = new Button();
+			bEdit = new Button();
 			SuspendLayout();
 			// 
 			// bPlay
@@ -64,12 +66,34 @@
 			lLength.TabIndex = 2;
 			lLength.Text = "Length";
 			// 
+			// bDelete
+			// 
+			bDelete.Location = new Point(643, 16);
+			bDelete.Name = "bDelete";
+			bDelete.Size = new Size(94, 29);
+			bDelete.TabIndex = 3;
+			bDelete.Text = "Delete";
+			bDelete.UseVisualStyleBackColor = true;
+			bDelete.Click += bDelete_Click;
+			// 
+			// bEdit
+			// 
+			bEdit.Location = new Point(543, 16);
+			bEdit.Name = "bEdit";
+			bEdit.Size = new Size(94, 29);
+			bEdit.TabIndex = 4;
+			bEdit.Text = "Edit";
+			bEdit.UseVisualStyleBackColor = true;
+			bEdit.Click += bEdit_Click;
+			// 
 			// SongControl
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			AutoSize = true;
 			BorderStyle = BorderStyle.FixedSingle;
+			Controls.Add(bEdit);
+			Controls.Add(bDelete);
 			Controls.Add(lLength);
 			Controls.Add(lSongName);
 			Controls.Add(bPlay);
@@ -84,5 +108,7 @@
 		private Button bPlay;
 		private Label lSongName;
 		private Label lLength;
+		private Button bDelete;
+		private Button bEdit;
 	}
 }

@@ -1,3 +1,5 @@
+USE [musicplayer]
+
 DELETE FROM songs;
 
 INSERT INTO songs (so_name, so_length) VALUES ('Song 1', 120);

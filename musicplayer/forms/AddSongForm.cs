@@ -15,17 +15,27 @@ namespace musicplayer.forms
 {
 	public partial class AddSongForm : Form
 	{
-		private byte[]? _songData;
 		private Album? _album;
 
-		private Song? _song;
+		private Song _song;
 
-		public Song? Song { get => _song; }
+		public Song Song { get => _song; }
 
 		public AddSongForm()
 		{
 			InitializeComponent();
 			this.FormBorderStyle = FormBorderStyle.FixedSingle;
+			_song = new Song("");
+		}
+
+		public AddSongForm(Song song)
+		{
+			InitializeComponent();
+			this.FormBorderStyle = FormBorderStyle.FixedSingle;
+			_song = song;
+
+			tbName.Text = song.Name;
+			lFile.Text = "Original song data";
 		}
 
 		private void AddSongForm_Load(object sender, EventArgs e)
@@ -40,7 +50,8 @@ namespace musicplayer.forms
 			if (dialog.ShowDialog() != DialogResult.OK) return;
 			try
 			{
-				_songData = File.ReadAllBytes(dialog.FileName);
+				_song.Data = File.ReadAllBytes(dialog.FileName);
+				_song.DataID = null;
 				lFile.Text = dialog.FileName;
 			}
 			catch (Exception ex)
@@ -52,22 +63,36 @@ namespace musicplayer.forms
 
 		private void bAdd_Click(object sender, EventArgs e)
 		{
-			if (_songData == null)
+			SongDAO dao = new SongDAO();
+			if (_song.Data == null)
 			{
-				MessageBox.Show("Please load an MP3 file containing the song data.", "No song data");
-				return;
+				if (_song.DataID != null)
+				{
+					try
+					{
+						_song.Data = dao.GetSongData((int)_song.DataID);
+					}
+					catch (Exception ex)
+					{
+						ErrorHandler.HandleException(ex, "Error", "Unable to load song data from the database!");
+						return;
+					}
+				}
+				else
+				{
+					MessageBox.Show("Please load an MP3 file containing the song data.", "No song data");
+					return;
+				}
 			}
 
-			_song = new Song(tbName.Text);
-			_song.Data = _songData;
-			_song.Length = (int)AudioPlayerManager.GetDuration(_songData);
+			_song.Length = (int)AudioPlayerManager.GetDuration(_song.Data);
 
-			SongDAO dao = new SongDAO();
 			_song.Id = dao.Upload(_song);
 
 			if (_song.Id == null)
 			{
 				MessageBox.Show("Upload failed due to an error.", "Error");
+				this.Close();
 			}
 			else
 			{
@@ -81,6 +106,11 @@ namespace musicplayer.forms
 			AlbumPicker picker = new AlbumPicker();
 			picker.ShowDialog();
 			_album = picker.Album;
+		}
+
+		private void tbName_TextChanged(object sender, EventArgs e)
+		{
+			_song.Name = tbName.Text;
 		}
 	}
 }

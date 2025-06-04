@@ -52,6 +52,7 @@
 			tbName.Name = "tbName";
 			tbName.Size = new Size(285, 27);
 			tbName.TabIndex = 1;
+			tbName.TextChanged += tbName_TextChanged;
 			// 
 			// lFile
 			// 

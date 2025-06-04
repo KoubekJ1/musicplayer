@@ -61,6 +61,7 @@
 			tbName.Name = "tbName";
 			tbName.Size = new Size(328, 27);
 			tbName.TabIndex = 1;
+			tbName.TextChanged += tbName_TextChanged;
 			// 
 			// pbImage
 			// 

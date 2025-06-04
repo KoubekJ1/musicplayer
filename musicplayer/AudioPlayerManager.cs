@@ -57,6 +57,7 @@ namespace musicplayer
 
 			PlayerControl.GetPlayerControl().SongName = song.Name;
 			if (song.Album?.Artist != null) PlayerControl.GetPlayerControl().ArtistName = song.Album.Artist.Name;
+			else PlayerControl.GetPlayerControl().ArtistName = "Unknown artist";
 			PlayAudio(song.Data, replace);
 			song.Data = null;
 			return true;

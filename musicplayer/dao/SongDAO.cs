@@ -106,6 +106,11 @@ namespace musicplayer.dao
 
         public int? Upload(Song song)
         {
+            if (song.Id != null)
+            {
+                Update(song);
+                return song.Id;
+            }
             if (song.Data == null) return null;
             int? dataID = UploadSongData(song.Data);
             song.DataID = dataID;
@@ -126,6 +131,34 @@ namespace musicplayer.dao
             connection.Close();
 
             return id;
+        }
+
+        public void Update(Song song)
+        {
+            if (song.Id == null) return;
+
+			if (song.DataID == null && song.Data == null)
+			{
+				throw new Exception("Song data is null!");
+			}
+
+			if (song.DataID == null)
+			{
+				song.DataID = UploadSongData(song.Data);
+			}
+
+			SqlConnection connection = DatabaseConnection.GetConnection();
+            connection.Open();            
+
+            SqlCommand command = new SqlCommand("UPDATE songs SET so_sd_id = @sd_id, so_name = @name, so_length = @length WHERE so_id = @id", connection);
+            command.Parameters.AddWithValue("id", song.Id);
+            command.Parameters.AddWithValue("sd_id", song.DataID);
+			command.Parameters.AddWithValue("name", song.Name);
+            command.Parameters.AddWithValue("length", song.Length);
+
+            command.ExecuteNonQuery();
+
+			connection.Close();
         }
 
         public byte[]? GetSongData(int id)

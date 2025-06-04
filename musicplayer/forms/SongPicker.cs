@@ -48,5 +48,15 @@ namespace musicplayer.forms
 			_song = lbSongs.SelectedItem as Song;
 			this.Close();
 		}
+
+		private void bNew_Click(object sender, EventArgs e)
+		{
+			AddSongForm addSongForm = new AddSongForm();
+			addSongForm.ShowDialog();
+			if (addSongForm.Song.Id == null) return;
+			
+			_song = addSongForm.Song;
+			this.Close();
+		}
 	}
 }

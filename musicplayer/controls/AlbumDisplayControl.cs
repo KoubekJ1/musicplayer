@@ -35,7 +35,7 @@ namespace musicplayer
 		{
 			_artistDisplayControl.Controls.Clear();
 
-			AlbumSongListControl control = new AlbumSongListControl(_album);
+			AlbumSongListControl control = new AlbumSongListControl(_album, _artistDisplayControl);
 			control.Dock = DockStyle.Fill;
 
 			_artistDisplayControl.Controls.Add(control);

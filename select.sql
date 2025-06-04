@@ -1,3 +1,5 @@
+USE [musicplayer]
+
 SELECT * FROM album_songs;
 SELECT * FROM albums;
 SELECT * FROM albums_genres;

@@ -14,11 +14,13 @@ namespace musicplayer.controls
 	public partial class SongOverviewControl : UserControl
 	{
 		private IEnumerable<Song> _songs;
+		private Control _artistDisplayControl;
 
-		public SongOverviewControl(IEnumerable<Song> songs)
+		public SongOverviewControl(IEnumerable<Song> songs, Control artistDisplayControl)
 		{
 			InitializeComponent();
 			_songs = songs;
+			_artistDisplayControl = artistDisplayControl;
 			SetSongs(songs);
 		}
 
@@ -27,7 +29,7 @@ namespace musicplayer.controls
 			flpSongs.Controls.Clear();
 			foreach (Song song in songs)
 			{
-				var control = new SongControl(song);
+				var control = new SongControl(song, _artistDisplayControl);
 				flpSongs.Controls.Add(control);
 			}
 		}

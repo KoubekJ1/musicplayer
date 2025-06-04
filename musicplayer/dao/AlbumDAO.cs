@@ -28,9 +28,12 @@ namespace musicplayer.dao
             {
                 album = new Album(reader.GetString(1));
                 album.Id = reader.GetInt32(0);
-                int? imgID = reader.GetInt32(2);
-                imgIDs.AddLast(imgID);
-                artistIDs.AddLast(reader.GetInt32(3));
+				if (!reader.IsDBNull(2))
+				{
+					int? imgID = reader.GetInt32(2);
+					imgIDs.AddLast(imgID);
+				}
+                if (!reader.IsDBNull(3)) artistIDs.AddLast(reader.GetInt32(3));
                 albums.AddLast(album);
             }
 
@@ -142,6 +145,11 @@ namespace musicplayer.dao
 
         public int? Upload(Album data)
         {
+            if (data.Id != null)
+            {
+                Update(data);
+                return data.Id;
+            }
 			if (data.Image != null && data.Image.Id == null)
 			{
 				data.Image.Id = new IconImageDAO().Upload(data.Image);
@@ -171,7 +179,39 @@ namespace musicplayer.dao
 			return data.Id;
 		}
 
-        public void CreateSongConnectionRow(int albumID, int songID, int order)
+		public void Update(Album data)
+		{
+            if (data.Id == null) return;
+            DeleteSongConnectionRows((int)data.Id);
+			if (data.Image != null && data.Image.Id == null)
+			{
+				data.Image.Id = new IconImageDAO().Upload(data.Image);
+			}
+
+			SqlConnection connection = DatabaseConnection.GetConnection();
+			connection.Open();
+
+			SqlCommand command = new SqlCommand("UPDATE albums SET alb_img_id = @img_id, alb_ar_id = @ar_id, alb_name = @name WHERE alb_id = @id", connection);
+			command.Parameters.AddWithValue("id", data.Id);
+			command.Parameters.AddWithValue("img_id", data.Image != null && data.Image.Id != null ? data.Image.Id : DBNull.Value);
+			command.Parameters.AddWithValue("ar_id", data.Artist != null && data.Artist.Id != null ? data.Artist.Id : DBNull.Value);
+			command.Parameters.AddWithValue("name", data.Name);
+
+            command.ExecuteNonQuery();
+
+			connection.Close();
+
+			for (int i = 0; i < data.Songs.Count; i++)
+			{
+				if (data.Songs[i].Id == null)
+				{
+					new SongDAO().Upload(data.Songs[i]);
+				}
+				CreateSongConnectionRow((int)data.Id, (int)data.Songs[i].Id, i);
+			}
+		}
+
+		public void CreateSongConnectionRow(int albumID, int songID, int order)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
@@ -183,6 +223,18 @@ namespace musicplayer.dao
 			command.ExecuteNonQuery();
 
 			connection.Close();
+        }
+
+        public void DeleteSongConnectionRows(int albumID)
+        {
+            SqlConnection connection = DatabaseConnection.GetConnection();
+            connection.Open();
+
+            SqlCommand command = new SqlCommand("DELETE FROM album_songs WHERE as_alb_id = @id", connection);
+            command.Parameters.AddWithValue("id", albumID);
+
+            command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

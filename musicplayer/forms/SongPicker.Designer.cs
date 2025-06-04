@@ -33,6 +33,7 @@
 			lSearch = new Label();
 			lbSongs = new ListBox();
 			lSongs = new Label();
+			bNew = new Button();
 			SuspendLayout();
 			// 
 			// bSelect
@@ -79,11 +80,22 @@
 			lSongs.TabIndex = 5;
 			lSongs.Text = "Songs";
 			// 
+			// bNew
+			// 
+			bNew.Location = new Point(112, 315);
+			bNew.Name = "bNew";
+			bNew.Size = new Size(94, 29);
+			bNew.TabIndex = 10;
+			bNew.Text = "New";
+			bNew.UseVisualStyleBackColor = true;
+			bNew.Click += bNew_Click;
+			// 
 			// SongPicker
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(333, 354);
+			Controls.Add(bNew);
 			Controls.Add(bSelect);
 			Controls.Add(tbSearch);
 			Controls.Add(lSearch);
@@ -102,5 +114,6 @@
 		private Label lSearch;
 		private ListBox lbSongs;
 		private Label lSongs;
+		private Button bNew;
 	}
 }

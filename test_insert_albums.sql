@@ -1,3 +1,5 @@
+USE [musicplayer]
+
 DELETE FROM albums;
 
 INSERT INTO albums (alb_img_id, alb_ar_id, alb_name) VALUES (2, 1, 'Album1');

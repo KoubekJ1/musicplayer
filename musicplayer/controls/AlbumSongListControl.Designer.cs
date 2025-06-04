@@ -32,6 +32,8 @@
 			pbAlbumImage = new PictureBox();
 			lAlbumName = new Label();
 			lArtistName = new Label();
+			bEdit = new Button();
+			bDelete = new Button();
 			((System.ComponentModel.ISupportInitialize)pbAlbumImage).BeginInit();
 			SuspendLayout();
 			// 
@@ -74,10 +76,32 @@
 			lArtistName.TabIndex = 3;
 			lArtistName.Text = "Artist name";
 			// 
+			// bEdit
+			// 
+			bEdit.Location = new Point(209, 139);
+			bEdit.Name = "bEdit";
+			bEdit.Size = new Size(94, 29);
+			bEdit.TabIndex = 4;
+			bEdit.Text = "Edit";
+			bEdit.UseVisualStyleBackColor = true;
+			bEdit.Click += bEdit_Click;
+			// 
+			// bDelete
+			// 
+			bDelete.Location = new Point(209, 174);
+			bDelete.Name = "bDelete";
+			bDelete.Size = new Size(94, 29);
+			bDelete.TabIndex = 5;
+			bDelete.Text = "Delete";
+			bDelete.UseVisualStyleBackColor = true;
+			bDelete.Click += bDelete_Click;
+			// 
 			// AlbumSongListControl
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(bDelete);
+			Controls.Add(bEdit);
 			Controls.Add(lArtistName);
 			Controls.Add(lAlbumName);
 			Controls.Add(pbAlbumImage);
@@ -95,5 +119,7 @@
 		private PictureBox pbAlbumImage;
 		private Label lAlbumName;
 		private Label lArtistName;
+		private Button bEdit;
+		private Button bDelete;
 	}
 }
