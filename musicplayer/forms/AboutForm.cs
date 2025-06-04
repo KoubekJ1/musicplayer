@@ -23,5 +23,10 @@ namespace musicplayer.forms
 			InitializeComponent();
 			this.FormBorderStyle = FormBorderStyle.FixedSingle;
 		}
+
+		private void AboutForm_Load(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

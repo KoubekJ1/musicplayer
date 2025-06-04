@@ -71,6 +71,7 @@
 			MaximizeBox = false;
 			Name = "AboutForm";
 			Text = "About";
+			Load += AboutForm_Load;
 			ResumeLayout(false);
 			PerformLayout();
 		}

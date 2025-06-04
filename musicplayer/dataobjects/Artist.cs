@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace musicplayer.dataobjects
 {
+    /// <summary>
+    /// Data class representing an artist in the database
+    /// </summary>
     public class Artist : IDataObject
     {
         private int? _id;
@@ -16,12 +19,21 @@ namespace musicplayer.dataobjects
         
         private List<Album> _albums;
 
+        /// <summary>
+        /// Constructs a new artist with the given name
+        /// </summary>
+        /// <param name="name">artist name</param>
         public Artist(string name)
         {
 			_name = name;
 			_albums = new List<Album>();
         }
 
+        /// <summary>
+        /// Constructs a new artist with the given name and image
+        /// </summary>
+        /// <param name="name">artist name</param>
+        /// <param name="image">artist image</param>
         public Artist(string name, IconImage image)
         {
 			_name = name;
@@ -39,6 +51,9 @@ namespace musicplayer.dataobjects
             return _id;
         }
 
+        /// <summary>
+        /// Loads the artist's albums from the database
+        /// </summary>
         public void LoadAlbums()
         {
 			if (_id == null) return;

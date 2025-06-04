@@ -13,12 +13,18 @@ using System.Windows.Forms;
 
 namespace musicplayer
 {
+	/// <summary>
+	/// Form used for creating or updating an album
+	/// </summary>
 	public partial class AddAlbumForm : Form
 	{
 		private Album _album;
 
 		public Album? Album { get => _album; }
 
+		/// <summary>
+		/// Constructs a new AddAlbumForm with a new album
+		/// </summary>
 		public AddAlbumForm()
 		{
 			InitializeComponent();
@@ -26,6 +32,10 @@ namespace musicplayer
 			_album = new Album("");
 		}
 
+		/// <summary>
+		/// Constructs a new AddAlbumForm with an existing album to edit
+		/// </summary>
+		/// <param name="album">album</param>
 		public AddAlbumForm(Album album)
 		{
 			InitializeComponent();
@@ -43,6 +53,11 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// EventHandler that changes the album picture
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bChange_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog dialog = new OpenFileDialog();
@@ -60,46 +75,11 @@ namespace musicplayer
 				return;
 			}
 		}
-
-		/*private void bAddAlbum_Click(object sender, EventArgs e)
-		{
-			_album = new Album(tbName.Text);
-			Bitmap? bitmap = pbImage.Image as Bitmap;
-			if (bitmap != null)
-			{
-				_album.Image = new IconImage(bitmap);
-			}
-			if (_artist != null)
-			{
-				_album.Artist = _artist;
-			}
-			foreach (var listBoxItem in lbSongs.Items)
-			{
-				Song? song = listBoxItem as Song;
-				if (song == null) continue;
-				_album.Songs.Add(song);
-			}
-
-			AlbumDAO dao = new AlbumDAO();
-			try
-			{
-				dao.Upload(_album);
-				if (_album.Id != null)
-				{
-					MessageBox.Show("Album \"" + _album.Name + "\" was successfully uploaded.", "Add Album");
-					this.Close();
-				}
-				else
-				{
-					throw new Exception("ID is null!");
-				}
-			}
-			catch (Exception ex)
-			{
-				ErrorHandler.HandleException(ex, "Error", "Unable to upload album due to an internal error");
-			}
-		}*/
-
+		/// <summary>
+		/// Adds the album to the database
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bAddAlbum_Click(object sender, EventArgs e)
 		{
 			_album.Songs.Clear();
@@ -130,6 +110,12 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// Opens an artist picker dialog to choose parent artist
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+
 		private void bClickArtist_Click(object sender, EventArgs e)
 		{
 			ArtistPicker picker = new ArtistPicker();
@@ -138,6 +124,11 @@ namespace musicplayer
 			if (_album.Artist != null) lArtistName.Text = _album.Artist.ToString();
 		}
 
+		/// <summary>
+		/// Opens the add song dialog to add a song to the album
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bAddSong_Click(object sender, EventArgs e)
 		{
 			SongPicker picker = new SongPicker();
@@ -146,6 +137,11 @@ namespace musicplayer
 			lbSongs.Items.Add(picker.Song);
 		}
 
+		/// <summary>
+		/// Shifts the selected song up a level
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bUp_Click(object sender, EventArgs e)
 		{
 			if (lbSongs.SelectedItem == null || lbSongs.SelectedIndex <= 0 || lbSongs.Items.Count <= 1) return;
@@ -160,6 +156,11 @@ namespace musicplayer
 			lbSongs.SelectedIndex = swapIndex;
 		}
 
+		/// <summary>
+		/// Lowers the selected song down a level
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bDown_Click(object sender, EventArgs e)
 		{
 			if (lbSongs.SelectedItem == null || lbSongs.SelectedIndex >= lbSongs.Items.Count - 1 || lbSongs.Items.Count <= 1) return;
@@ -174,6 +175,11 @@ namespace musicplayer
 			lbSongs.SelectedIndex = swapIndex;
 		}
 
+		/// <summary>
+		/// Sets the album name to the textbox value
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void tbName_TextChanged(object sender, EventArgs e)
 		{
 			_album.Name = tbName.Text;

@@ -8,16 +8,28 @@ using System.Threading.Tasks;
 
 namespace musicplayer.dataobjects
 {
+    /// <summary>
+    /// Data class representing an image in the database
+    /// </summary>
     public class IconImage : IDataObject
     {
         private int? _id;
         private Bitmap _image;
 
+        /// <summary>
+        /// Constructs a new image
+        /// </summary>
+        /// <param name="image">image data</param>
         public IconImage(Bitmap image)
         {
             _image = image;
         }
 
+        /// <summary>
+        /// Constructs a new IconImage with the given ID
+        /// </summary>
+        /// <param name="image">image data</param>
+        /// <param name="id">ID</param>
         public IconImage(Bitmap image, int id)
         {
 			_id = id;
@@ -47,6 +59,13 @@ namespace musicplayer.dataobjects
             return _id;
         }
 
+        /// <summary>
+        /// Resizes the image to the given size
+        /// </summary>
+        /// <param name="image">image</param>
+        /// <param name="width">width</param>
+        /// <param name="height">height</param>
+        /// <returns></returns>
         public static Bitmap ResizeImage(Image image, int width, int height)
         {
             var destRect = new Rectangle(0, 0, width, height);

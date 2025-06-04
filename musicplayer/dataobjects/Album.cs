@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace musicplayer.dataobjects
 {
     /// <summary>
-    /// Album 
+    /// Data object representing an album
     /// </summary>
     public class Album : IDataObject
     {
@@ -20,11 +20,21 @@ namespace musicplayer.dataobjects
 
         private List<Song> _songs;
 
+        /// <summary>
+        /// Constructs a new album with the given name
+        /// </summary>
+        /// <param name="name">album name</param>
         public Album(string name)
         {
             _name = name;
             _songs = new List<Song>();
         }
+
+        /// <summary>
+        /// Constructs a new album with the given name and image
+        /// </summary>
+        /// <param name="name">album name</param>
+        /// <param name="_image">album image</param>
         public Album(string name, IconImage _image)
         {
             _name = name;
