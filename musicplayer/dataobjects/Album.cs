@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace musicplayer.dataobjects
 {
+    /// <summary>
+    /// Album 
+    /// </summary>
     public class Album : IDataObject
     {
         private int? id;

@@ -245,9 +245,9 @@ namespace musicplayer.dao
         /// <summary>
         /// Creates a connection in the linking table between the given album and the given song
         /// </summary>
-        /// <param name="albumID"></param>
-        /// <param name="songID"></param>
-        /// <param name="order"></param>
+        /// <param name="albumID">album ID</param>
+        /// <param name="songID">song ID</param>
+        /// <param name="order">song order</param>
 		public void CreateSongConnectionRow(int albumID, int songID, int order)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -262,6 +262,10 @@ namespace musicplayer.dao
 			connection.Close();
         }
 
+        /// <summary>
+        /// Deletes all album-song connections with the given albumID
+        /// </summary>
+        /// <param name="albumID"></param>
         public void DeleteSongConnectionRows(int albumID)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();

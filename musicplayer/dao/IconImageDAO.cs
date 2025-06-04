@@ -8,13 +8,26 @@ using System.Threading.Tasks;
 
 namespace musicplayer.dao
 {
+    /// <summary>
+    /// DAO implementation that operates on IconImage instances in an SQL database defined by the DatabaseConnection singleton
+    /// </summary>
     public class IconImageDAO : IDAO<IconImage>
     {
+
+        /// <summary>
+        /// Retrieves all IconImages in the database
+        /// </summary>
+        /// <returns>All IconImages</returns>
         public IEnumerable<IconImage> GetAll()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Retrieves an IconImage based on its ID
+        /// </summary>
+        /// <param name="id">IconImage ID</param>
+        /// <returns>IconImage</returns>
         public IconImage? GetByID(int id)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -40,11 +53,20 @@ namespace musicplayer.dao
             return image;
         }
 
+        /// <summary>
+        /// Removes an IconImage from the database
+        /// </summary>
+        /// <param name="id">IconImage ID</param>
         public void Remove(int id)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Uploads the IconImage into the database
+        /// </summary>
+        /// <param name="data">IconImage</param>
+        /// <returns>IconImage ID</returns>
         public int? Upload(IconImage data)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();

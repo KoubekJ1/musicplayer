@@ -9,8 +9,17 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace musicplayer.dao
 {
+
+    /// <summary>
+    /// DAO implementation used for working with Songs
+    /// </summary>
     public class SongDAO : IDAO<Song>
     {
+
+        /// <summary>
+        /// Retrieves all songs from the database
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Song> GetAll()
         {
             LinkedList<Song> songs = new LinkedList<Song>();
@@ -37,6 +46,11 @@ namespace musicplayer.dao
             return songs;
         }
 
+        /// <summary>
+        /// Retrieves a song based on the given ID
+        /// </summary>
+        /// <param name="id">song ID</param>
+        /// <returns>Song</returns>
         public Song? GetByID(int id)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -60,6 +74,11 @@ namespace musicplayer.dao
             return song;
         }
 
+        /// <summary>
+        /// Returns all songs in the given album
+        /// </summary>
+        /// <param name="albumID">album</param>
+        /// <returns>songs</returns>
         public List<Song> GetSongsFromAlbum(int albumID)
         {
             LinkedList<int> songIDs = new LinkedList<int>();
@@ -91,6 +110,10 @@ namespace musicplayer.dao
             return songs;
         }
 
+        /// <summary>
+        /// Removes the given instance from the database
+        /// </summary>
+        /// <param name="id">id</param>
         public void Remove(int id)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -111,6 +134,11 @@ namespace musicplayer.dao
             connection.Close();
         }
 
+        /// <summary>
+        /// Uploads the song into the database
+        /// </summary>
+        /// <param name="song">song</param>
+        /// <returns>id</returns>
         public int? Upload(Song song)
         {
             if (song.Id != null)
@@ -140,6 +168,10 @@ namespace musicplayer.dao
             return id;
         }
 
+        /// <summary>
+        /// Updates the song instance in the database
+        /// </summary>
+        /// <param name="song">song</param>
         public void Update(Song song)
         {
             if (song.Id == null) return;
@@ -168,6 +200,11 @@ namespace musicplayer.dao
 			connection.Close();
         }
 
+        /// <summary>
+        /// Retrieves the song data for a given song
+        /// </summary>
+        /// <param name="id">song id</param>
+        /// <returns>mp3 song data</returns>
         public byte[]? GetSongData(int id)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -188,6 +225,11 @@ namespace musicplayer.dao
             return data;
         }
 
+        /// <summary>
+        /// Uploads the song data into the database
+        /// </summary>
+        /// <param name="data">song data</param>
+        /// <returns>data id</returns>
         public int? UploadSongData(byte[] data)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
