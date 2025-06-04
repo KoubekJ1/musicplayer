@@ -12,11 +12,19 @@ using System.Windows.Forms;
 
 namespace musicplayer.controls
 {
+	/// <summary>
+	/// UserControl that displays information about an album as well as its songs
+	/// </summary>
 	public partial class AlbumSongListControl : UserControl
 	{
 		private Album _album;
 		private Control _artistDisplayControl;
 
+		/// <summary>
+		/// Constructs a new AlbumSongListControl with the given album
+		/// </summary>
+		/// <param name="album">album</param>
+		/// <param name="artistDisplayControl">control containing the album list</param>
 		public AlbumSongListControl(Album album, Control artistDisplayControl)
 		{
 			InitializeComponent();
@@ -42,6 +50,11 @@ namespace musicplayer.controls
 			_artistDisplayControl = artistDisplayControl;
 		}
 
+		/// <summary>
+		/// EventHandler that opens the edit album dialog
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bEdit_Click(object sender, EventArgs e)
 		{
 			var EditAlbumForm = new AddAlbumForm(_album);
@@ -49,6 +62,11 @@ namespace musicplayer.controls
 			_artistDisplayControl.Controls.Clear();
 		}
 
+		/// <summary>
+		/// EventHandler that deletes the album from the database
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bDelete_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("Are you sure you wish to delete \"" + _album.Name + "\" from the database?", "Delete", MessageBoxButtons.YesNo) != DialogResult.Yes) return;

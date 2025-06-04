@@ -101,6 +101,7 @@
 			Controls.Add(lSearch);
 			Controls.Add(lbSongs);
 			Controls.Add(lSongs);
+			MaximizeBox = false;
 			Name = "SongPicker";
 			Text = "Song Picker";
 			ResumeLayout(false);

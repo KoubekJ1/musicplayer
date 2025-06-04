@@ -14,10 +14,18 @@ using System.Windows.Forms;
 
 namespace musicplayer
 {
+	/// <summary>
+	/// Singleton-based class that handles all music-playing related operations
+	/// </summary>
 	public class AudioPlayerManager
 	{
 		private static AudioPlayerManager? s_instance;
 		private static object s_instanceLock = new object();
+
+		/// <summary>
+		/// Returns the singleton AudioPlayerManager instance
+		/// </summary>
+		/// <returns></returns>
 		public static AudioPlayerManager GetPlayerManager()
 		{
 			lock (s_instanceLock)
@@ -26,6 +34,12 @@ namespace musicplayer
 				return s_instance;
 			}
 		}
+
+		/// <summary>
+		/// Retrieves the duration of the song
+		/// </summary>
+		/// <param name="data">mp3 song data</param>
+		/// <returns></returns>
 		public static int? GetDuration(byte[] data)
 		{
 			MemoryStream memoryStream = new MemoryStream(data);
@@ -39,6 +53,10 @@ namespace musicplayer
 
 		private LinkedList<Song> _songQueue;
 		private LinkedList<Song> _songHistory;
+
+		/// <summary>
+		/// Constructs a new AudioPlayerManager instance
+		/// </summary>
 		private AudioPlayerManager()
 		{
 			volume = 1.0f;
@@ -46,6 +64,12 @@ namespace musicplayer
 			_songHistory = new LinkedList<Song>();
 		}
 
+		/// <summary>
+		/// Plays the given song
+		/// </summary>
+		/// <param name="song">song</param>
+		/// <param name="replace">whether to end the current playback if there is one</param>
+		/// <returns></returns>
 		public bool PlaySong(Song song, bool replace = true)
 		{
 			if (song.Data == null && song.DataID == null) return false;
@@ -63,21 +87,37 @@ namespace musicplayer
 			return true;
 		}
 
+		/// <summary>
+		/// Adds the given song to the queue
+		/// </summary>
+		/// <param name="song">song</param>
 		public void AddToQueue(Song song)
 		{
 			_songQueue.AddLast(song);
 		}
 
+		/// <summary>
+		/// Adds the given song to the song history
+		/// </summary>
+		/// <param name="song">song</param>
 		public void AddToHistory(Song song)
 		{
 			_songHistory.AddLast(song);
 		}
 
+		/// <summary>
+		/// Cleares the song queue
+		/// </summary>
 		public void ClearQueue()
 		{
 			_songQueue.Clear();
 		}
 
+		/// <summary>
+		/// Plays the raw mp3 audio data
+		/// </summary>
+		/// <param name="data">audio data</param>
+		/// <param name="replace">whether to end the current playback if there is one</param>
 		public void PlayAudio(byte[] data, bool replace)
 		{
 			if (_outputDevice != null)
@@ -103,6 +143,10 @@ namespace musicplayer
 			PlayerControl.GetPlayerControl().Enable();
 		}
 
+		/// <summary>
+		/// Toggles the playback state between paused and unpaused
+		/// </summary>
+		/// <returns>if the song is playing</returns>
 		public bool TogglePause()
 		{
 			if (_outputDevice == null) return false;
@@ -118,6 +162,9 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// Continues playing the song
+		/// </summary>
 		private void Continue()
 		{
 			if (_outputDevice == null || _fileReader == null || _stream == null) return;
@@ -125,17 +172,26 @@ namespace musicplayer
 			_outputDevice.Play();
 		}
 
+		/// <summary>
+		/// Stops playing the song
+		/// </summary>
 		private void Stop()
 		{
 			_outputDevice?.Stop();
 		}
 
+		/// <summary>
+		/// Plays the next song in the queue
+		/// </summary>
 		public void Next()
 		{
 			Stop();
 			PlayNextSong();
 		}
 
+		/// <summary>
+		/// Replays the current song or plays the previous song based on the current progress
+		/// </summary>
 		public void Back()
 		{
 			if (_songHistory.Count < 1) return;
@@ -161,6 +217,9 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// Releases music data related memory
+		/// </summary>
 		public void Dispose()
 		{
 			_outputDevice?.Dispose();
@@ -168,6 +227,9 @@ namespace musicplayer
 			_stream?.Close();
 		}
 
+		/// <summary>
+		/// Releases music data related memory and clears the queue, disabling the player control instance in the process
+		/// </summary>
 		public void Clear()
 		{
 			Dispose();
@@ -176,6 +238,9 @@ namespace musicplayer
 			PlayerControl.GetPlayerControl().Disable();
 		}
 
+		/// <summary>
+		/// Floating point value determining the current playback progress (0-1)
+		/// </summary>
 		public float Progress
 		{
 			get
@@ -198,6 +263,9 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// Floating point value determining the current volume (0-1)
+		/// </summary>
 		public float Volume
 		{
 			get
@@ -211,6 +279,9 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// Advances to the next song if there is no song playing
+		/// </summary>
 		private void PlayNextSong()
 		{
 			Dispose();
@@ -241,6 +312,11 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// EventHandler that handles behaviour upon playback stopping
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="args"></param>
 		private void OnPlaybackStopped(object? sender, EventArgs args)
 		{
 			if (Progress >= 1)

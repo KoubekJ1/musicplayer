@@ -101,6 +101,7 @@
 			Controls.Add(tbName);
 			Controls.Add(labelName);
 			Margin = new Padding(2);
+			MaximizeBox = false;
 			Name = "AddArtistForm";
 			Text = "Add Artist";
 			((System.ComponentModel.ISupportInitialize)pbImage).EndInit();

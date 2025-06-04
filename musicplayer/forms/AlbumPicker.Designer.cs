@@ -89,6 +89,7 @@
 			Controls.Add(lSearch);
 			Controls.Add(lbAlbums);
 			Controls.Add(lAlbums);
+			MaximizeBox = false;
 			Name = "AlbumPicker";
 			Text = "Album Picker";
 			ResumeLayout(false);

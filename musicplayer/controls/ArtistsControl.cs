@@ -13,10 +13,18 @@ using System.Windows.Forms;
 
 namespace musicplayer
 {
+	/// <summary>
+	/// UserControl used for displaying individual artist thumbnails as well as information about the selected artist
+	/// </summary>
 	public partial class ArtistsControl : UserControl
 	{
 		private Dictionary<Button, Artist> _artistButtons = new Dictionary<Button, Artist>();
 		private Control _parentPanel;
+
+		/// <summary>
+		/// Constructs a new ArtistsControl instance
+		/// </summary>
+		/// <param name="parentPanel">Control containing the instance</param>
 		public ArtistsControl(Control parentPanel)
 		{
 			InitializeComponent();
@@ -50,6 +58,11 @@ namespace musicplayer
 			}
 		}
 
+		/// <summary>
+		/// EventHandler that sets the content panel's content to the given artist
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ButtonClicked(object? sender, EventArgs e)
 		{
 			Button? button = sender as Button;

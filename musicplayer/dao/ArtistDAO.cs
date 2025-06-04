@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 
 namespace musicplayer.dao
 {
+    /// <summary>
+    /// DAO implementation that retrieves Artist objects from an SQL Server database handled by the DatabaseConnection singleton instance
+    /// </summary>
     public class ArtistDAO : IDAO<Artist>
     {
+        /// <summary>
+        /// Retrieves all artists from the database
+        /// </summary>
+        /// <returns>all artists</returns>
         public IEnumerable<Artist> GetAll()
         {
             LinkedList<Artist> artists = new LinkedList<Artist>();
@@ -42,6 +49,11 @@ namespace musicplayer.dao
             return artists;
         }
 
+        /// <summary>
+        /// Retrieves an artist based on his ID
+        /// </summary>
+        /// <param name="id">artist ID</param>
+        /// <returns>artist</returns>
         public Artist? GetByID(int id)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -67,6 +79,10 @@ namespace musicplayer.dao
             return artist;
         }
 
+        /// <summary>
+        /// Removes an artist with the given ID from the database
+        /// </summary>
+        /// <param name="id">artist ID</param>
         public void Remove(int id)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -79,6 +95,11 @@ namespace musicplayer.dao
             connection.Close();
         }
 
+        /// <summary>
+        /// Uploads the given artist to the database
+        /// </summary>
+        /// <param name="artist">artist</param>
+        /// <returns>new artist ID</returns>
         public int? Upload(Artist artist)
         {
             if (artist.Id != null)
@@ -108,6 +129,10 @@ namespace musicplayer.dao
             return id;
         }
 
+        /// <summary>
+        /// Updates the given artist instance in the database
+        /// </summary>
+        /// <param name="artist">artist</param>
         public void Update(Artist artist)
         {
             if (artist.Id == null) return;

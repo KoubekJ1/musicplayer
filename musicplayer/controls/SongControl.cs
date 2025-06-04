@@ -13,11 +13,19 @@ using System.Windows.Forms;
 
 namespace musicplayer.controls
 {
+	/// <summary>
+	/// UserControl instances that are used for displaying individual songs
+	/// </summary>
 	public partial class SongControl : UserControl
 	{
 		private Song _song;
 		private Control _artistContentControl;
 
+		/// <summary>
+		/// Constructs a new SongControl instance with the given song
+		/// </summary>
+		/// <param name="song">Song</param>
+		/// <param name="artistContentControl">Control containing the song list</param>
 		public SongControl(Song song, Control artistContentControl)
 		{
 			InitializeComponent();
@@ -29,6 +37,11 @@ namespace musicplayer.controls
 			lLength.Text = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 		}
 
+		/// <summary>
+		/// EventHandler that plays the given song and adds other songs in the album to the queue
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bPlay_Click(object sender, EventArgs e)
 		{
 			AudioPlayerManager.GetPlayerManager().Clear();
@@ -44,6 +57,11 @@ namespace musicplayer.controls
 			}
 		}
 
+		/// <summary>
+		/// EventHandler that opens the edit song dialog
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bEdit_Click(object sender, EventArgs e)
 		{
 			var form = new AddSongForm(_song);
@@ -51,6 +69,11 @@ namespace musicplayer.controls
 			_artistContentControl.Controls.Clear();
 		}
 
+		/// <summary>
+		/// EventHandler that deletes the song from the database
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void bDelete_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("Are you sure you wish to delete \"" + _song.Name + "\" from the database?", "Delete", MessageBoxButtons.YesNo) != DialogResult.Yes) return;

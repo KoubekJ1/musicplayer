@@ -197,6 +197,7 @@
 			Controls.Add(pbImage);
 			Controls.Add(tbName);
 			Controls.Add(lName);
+			MaximizeBox = false;
 			Name = "AddAlbumForm";
 			Text = "Add Album";
 			((System.ComponentModel.ISupportInitialize)pbImage).EndInit();

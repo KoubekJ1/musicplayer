@@ -89,6 +89,7 @@
 			Controls.Add(lSearch);
 			Controls.Add(lbArtists);
 			Controls.Add(lArtists);
+			MaximizeBox = false;
 			Name = "ArtistPicker";
 			Text = "Artist Picker";
 			ResumeLayout(false);

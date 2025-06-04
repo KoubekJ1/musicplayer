@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace musicplayer.dao
 {
+    /// <summary>
+    /// DAO implementation that retrieves Album instances using the DatabaseConnection singleton
+    /// </summary>
     public class AlbumDAO : IDAO<Album>
     {
+
+        /// <summary>
+        /// Retrieves all albums from the database
+        /// </summary>
+        /// <returns>all albums</returns>
         public IEnumerable<Album> GetAll()
         {
             LinkedList<Album> albums = new LinkedList<Album>();
@@ -60,6 +68,11 @@ namespace musicplayer.dao
             return albums;
         }
 
+        /// <summary>
+        /// Retrieves an album based on its ID
+        /// </summary>
+        /// <param name="id">ID</param>
+        /// <returns>Album</returns>
         public Album? GetByID(int id)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -84,6 +97,11 @@ namespace musicplayer.dao
             return album;
         }
 
+        /// <summary>
+        /// Retrieves the given artist's albums
+        /// </summary>
+        /// <param name="artistID">artist ID</param>
+        /// <returns>artist's albums</returns>
         public List<Album> GetArtistAlbums(int artistID)
         {
             List<Album> albums = new List<Album>();
@@ -131,6 +149,10 @@ namespace musicplayer.dao
             return albums;
         }
 
+        /// <summary>
+        /// Removes the given album from the database
+        /// </summary>
+        /// <param name="id">album ID</param>
 		public void Remove(int id)
 		{
             SqlConnection connection = DatabaseConnection.GetConnection();
@@ -143,6 +165,11 @@ namespace musicplayer.dao
             connection.Close();
 		}
 
+        /// <summary>
+        /// Uploads the given album to the database
+        /// </summary>
+        /// <param name="data">album</param>
+        /// <returns>new album ID</returns>
         public int? Upload(Album data)
         {
             if (data.Id != null)
@@ -178,7 +205,11 @@ namespace musicplayer.dao
 
 			return data.Id;
 		}
-
+        
+        /// <summary>
+        /// Updates the album instance in the database
+        /// </summary>
+        /// <param name="data">album</param>
 		public void Update(Album data)
 		{
             if (data.Id == null) return;
@@ -211,6 +242,12 @@ namespace musicplayer.dao
 			}
 		}
 
+        /// <summary>
+        /// Creates a connection in the linking table between the given album and the given song
+        /// </summary>
+        /// <param name="albumID"></param>
+        /// <param name="songID"></param>
+        /// <param name="order"></param>
 		public void CreateSongConnectionRow(int albumID, int songID, int order)
         {
             SqlConnection connection = DatabaseConnection.GetConnection();

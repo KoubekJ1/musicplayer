@@ -97,6 +97,7 @@
 			Controls.Add(tbName);
 			Controls.Add(label1);
 			Margin = new Padding(2);
+			MaximizeBox = false;
 			Name = "AddSongForm";
 			Text = "Add Song";
 			Load += AddSongForm_Load;
