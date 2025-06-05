@@ -59,7 +59,10 @@ namespace musicplayer.dao
             SqlConnection connection = DatabaseConnection.GetConnection();
             connection.Open();
 
-            SqlCommand command = new SqlCommand("SELECT ar_id, ar_name, ar_img_id FROM artists", connection);
+            //SqlCommand command = new SqlCommand("SELECT ar_id, ar_name, ar_img_id FROM artists", connection);
+            SqlCommand command = new SqlCommand("SELECT ar_id, ar_name, ar_img_id FROM artists WHERE ar_id = @id", connection);
+            command.Parameters.AddWithValue("id", id);
+
             SqlDataReader reader = command.ExecuteReader();
 
             if (!reader.Read()) return null;
